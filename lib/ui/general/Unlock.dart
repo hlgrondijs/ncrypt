@@ -86,6 +86,7 @@ class _UnlockState extends State<Unlock> {
                     ),
                     obscureText: !_passwordVisible,
                     onSaved: (String password) { masterPassword = password; },
+                    keyboardType: TextInputType.visiblePassword,
                     validator: _validatePassword,
                   ),
                   Padding(

@@ -59,6 +59,7 @@ class _NewNoteState extends State<NewNote> {
                           labelText: 'Title',
                           helperText: 'Enter the title of your note',
                         ),
+                        keyboardType: TextInputType.text,
                         onSaved: (String title) { newNote.title = title; },
                       ),
                     ),

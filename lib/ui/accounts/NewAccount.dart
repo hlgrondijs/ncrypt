@@ -72,6 +72,7 @@ class _NewAccountState extends State<NewAccount> {
                           helperText: 'The name of the service or app',
                         ),
                         maxLength: MAX_ACCOUNTNAME_LENGTH,
+                        keyboardType: TextInputType.text,
                         onSaved: (String accountname) { newAccount.accountname = accountname; }
                       ),
                     ),
@@ -83,6 +84,7 @@ class _NewAccountState extends State<NewAccount> {
                           helperText: 'Your username'
                         ),
                         maxLength: MAX_USERNAME_LENGTH,
+                        keyboardType: TextInputType.emailAddress,
                         onSaved: (String username) { newAccount.username = username; }
                       ),
                     ),
@@ -104,6 +106,7 @@ class _NewAccountState extends State<NewAccount> {
                         ),
                         maxLength: MAX_PASSWORD_LENGTH,
                         obscureText: !_passwordVisible,
+                        keyboardType: TextInputType.visiblePassword,
                         onSaved: (String password) { newAccount.password = password; }
                       ),
                     ),

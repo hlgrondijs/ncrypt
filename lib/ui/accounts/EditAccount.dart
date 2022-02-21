@@ -73,6 +73,7 @@ class _EditAccountState extends State<EditAccount> {
                         ),
                         initialValue: widget.account.accountname,
                         maxLength: MAX_ACCOUNTNAME_LENGTH,
+                        keyboardType: TextInputType.text,
                         onSaved: (String newAccountname) { widget.account.accountname = newAccountname; }
                       ),
                     ),
@@ -86,6 +87,7 @@ class _EditAccountState extends State<EditAccount> {
                         ),
                         initialValue: widget.account.username,
                         maxLength: MAX_USERNAME_LENGTH,
+                        keyboardType: TextInputType.emailAddress,
                         onSaved: (String newUsername) { widget.account.username = newUsername; }
                       ),
                     ),
@@ -108,6 +110,7 @@ class _EditAccountState extends State<EditAccount> {
                         ),
                         maxLength: MAX_PASSWORD_LENGTH,
                         obscureText: !_passwordVisible,
+                        keyboardType: TextInputType.visiblePassword,
                         onSaved: (String newPassword) { widget.account.password = newPassword; }
                       ),
                     ),

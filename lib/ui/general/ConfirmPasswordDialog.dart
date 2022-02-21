@@ -34,6 +34,7 @@ class _ConfirmPasswordDialogState extends State<ConfirmPasswordDialog> {
           ),
           maxLength: 64,
           obscureText: !_passwordConfirmVisible,
+          keyboardType: TextInputType.visiblePassword,
           validator: (value) {
             if (value != widget.masterPassInput) {
               return "Passwords don't match";

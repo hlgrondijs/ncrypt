@@ -237,6 +237,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
                   child: TextFormField(
                     autofocus: true,
                     controller: searchController,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       icon: Icon(Icons.search),
                       labelText: 'Type to search...',

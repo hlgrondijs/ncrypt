@@ -106,6 +106,7 @@ class _SetupPasswordState extends State<SetupPassword> {
                   onSaved: (String input) { 
                     masterpass1 = input;
                   },
+                  keyboardType: TextInputType.visiblePassword,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please enter a password';

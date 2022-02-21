@@ -69,6 +69,7 @@ class _EditNoteState extends State<EditNote> {
                         initialValue: widget.note.title,
                         maxLength: 40,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                        keyboardType: TextInputType.text,
                         onSaved: (String title) { widget.note.title = title; }
                       )
                     ),

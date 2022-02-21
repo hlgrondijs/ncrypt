@@ -66,6 +66,7 @@ class _ResetVaultState extends State<ResetVault> {
                           labelText: 'Current master password',
                           helperText: 'Enter your current master password to confirm the vault reset'
                         ),
+                        keyboardType: TextInputType.visiblePassword,
                         onSaved: (String currMpass) { currentMasterpassword = currMpass; },
                         validator: _validatePassword,
                       )

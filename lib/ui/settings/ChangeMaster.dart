@@ -81,6 +81,7 @@ class _ChangeMasterState extends State<ChangeMaster> {
                           ),
                         ),
                         obscureText: !_currentPasswordVisible,
+                        keyboardType: TextInputType.visiblePassword,
                         onSaved: (String currentPass) { currentPassword = currentPass; },
                         validator: _validatePassword,
                       ),
@@ -99,6 +100,7 @@ class _ChangeMasterState extends State<ChangeMaster> {
                           ),
                         ),
                         obscureText: !_newPasswordVisible,
+                        keyboardType: TextInputType.visiblePassword,
                         onSaved: (String newPass) { newPassword = newPass; },
                         validator: _validatePassword,
                       ),
@@ -200,6 +202,7 @@ class _ChangeMasterState extends State<ChangeMaster> {
                   ),
                   maxLength: 64,
                   obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
                   validator: (value) {
                     if (value != newPassword) {
                       return "Passwords don't match";
