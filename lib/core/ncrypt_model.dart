@@ -60,12 +60,12 @@ class NCryptModel extends Model {
     _hideLockDialog = val;
   }
 
-  void setAccountList(List<Account> accList) async {
+  Future setAccountList(List<Account> accList) async {
     _accountList = accList;
     notifyListeners();
   }
 
-  void setNoteList(List<Note> nList) async {
+  Future setNoteList(List<Note> nList) async {
     _noteList = nList;
     notifyListeners();
   }

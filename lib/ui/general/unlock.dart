@@ -71,6 +71,7 @@ class _UnlockState extends State<Unlock> {
                     ),
                   ),
                   TextFormField(
+                    key: Key('MasterPasswordUnlockFormField'),
                     decoration: InputDecoration(
                       helperText: 'Enter your master password to unlock nCrypt',
                       suffixIcon: IconButton(
@@ -94,6 +95,7 @@ class _UnlockState extends State<Unlock> {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 0.0),
                     child: FloatingActionButton(
+                      key: Key('MasterPasswordUnlockFAB'),
                       child: Icon(Icons.lock_open),
                       elevation: 5.0,
                       onPressed: () {

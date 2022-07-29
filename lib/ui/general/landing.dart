@@ -8,6 +8,8 @@ class Landing extends StatefulWidget {
 
   final Callback onSubmit;
 
+  Key key = Key('LandingWidget');
+
   _LandingState createState() => new _LandingState();
 }
 
@@ -217,6 +219,7 @@ class _LandingState extends State<Landing> {
                 Container(
                   padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
                   child: FloatingActionButton(
+                    key: Key('LandingOKFAB'),
                     onPressed: () {
                       widget.onSubmit();
                     },

@@ -9,7 +9,8 @@ class ConfirmPasswordDialog extends StatefulWidget {
   final GlobalKey<FormState> confirmationFormKey;
   final String masterPassInput;
 
-  _ConfirmPasswordDialogState createState() => new _ConfirmPasswordDialogState();
+  _ConfirmPasswordDialogState createState() =>
+      new _ConfirmPasswordDialogState();
 }
 
 class _ConfirmPasswordDialogState extends State<ConfirmPasswordDialog> {
@@ -21,10 +22,13 @@ class _ConfirmPasswordDialogState extends State<ConfirmPasswordDialog> {
       child: Form(
         key: widget.confirmationFormKey,
         child: TextFormField(
+          key: Key('ConfirmMasterPasswordFormField'),
           decoration: InputDecoration(
             helperText: 'Type it again',
             suffixIcon: IconButton(
-              icon: _passwordConfirmVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+              icon: _passwordConfirmVisible
+                  ? Icon(Icons.visibility)
+                  : Icon(Icons.visibility_off),
               onPressed: () {
                 setState(() {
                   _passwordConfirmVisible = !_passwordConfirmVisible;

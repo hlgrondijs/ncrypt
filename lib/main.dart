@@ -48,5 +48,9 @@ void main() async {
   await nCryptModel.init();
 
   runApp(
-      ScopedModel(model: nCryptModel, child: NCrypt(themeString: themeString)));
+    ScopedModel(
+      model: nCryptModel,
+      child: NCrypt(themeString: themeString),
+    ),
+  );
 }

@@ -16,6 +16,8 @@ class SetupPassword extends StatefulWidget {
   final Callback onSubmit;
   final VaultHandler vaultHandler;
 
+  Key key = Key('SetupPasswordWidget');
+
   _SetupPasswordState createState() => new _SetupPasswordState();
 }
 
@@ -90,6 +92,7 @@ class _SetupPasswordState extends State<SetupPassword> {
             children: [
               Container(
                 child: TextFormField(
+                  key: Key('ChooseMasterPassword'),
                   controller: _controller,
                   decoration: InputDecoration(
                     helperText: 'Choose a master password',
@@ -163,6 +166,7 @@ class _SetupPasswordState extends State<SetupPassword> {
         ),
         Container(
           child: FloatingActionButton(
+            key: Key('ChooseMasterPasswordFAB'),
             onPressed: () {
               _setupMasterPassword();
             },
@@ -224,6 +228,7 @@ class _SetupPasswordState extends State<SetupPassword> {
               },
             ),
             TextButton(
+              key: Key('ConfirmMasterPasswordButton'),
               child: Text('Accept'),
               onPressed: () {
                 //Validate
