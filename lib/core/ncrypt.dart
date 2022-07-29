@@ -3,8 +3,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ncrypt_model.dart';
-import '../ui/general/VaultDoor.dart';
-import '../ui/general/Theme.dart';
+import '../ui/general/vault_door.dart';
+import '../ui/general/theme.dart';
 import 'constants.dart';
 
 class NCrypt extends StatefulWidget {

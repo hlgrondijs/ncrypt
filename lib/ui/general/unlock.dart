@@ -5,13 +5,13 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import 'package:scoped_model/scoped_model.dart';
 
-import 'Vault.dart';
+import 'vault.dart';
 import '../../core/vault_handler.dart';
 import '../../core/ncrypt_model.dart';
 
 import '../../core/account.dart';
 import '../../core/note.dart';
-import 'Prefabs.dart';
+import 'prefabs.dart';
 
 typedef void Callback();
 

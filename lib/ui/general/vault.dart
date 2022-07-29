@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../../core/ncrypt_model.dart';
-import 'LockDialog.dart';
+import 'lock_dialog.dart';
 import '../../core/account.dart';
 import '../../core/note.dart';
-import 'Prefabs.dart';
+import 'prefabs.dart';
 import '../../core/vault_handler.dart';
 
-import '../notes/NotesVault.dart';
-import '../notes/NewNote.dart';
+import '../notes/notes_vault.dart';
+import '../notes/new_note.dart';
 
-import '../accounts/AccountsVault.dart';
-import '../accounts/NewAccount.dart';
+import '../accounts/accounts_vault.dart';
+import '../accounts/new_account.dart';
 
-import 'Landing.dart';
+import 'landing.dart';
 
-import '../settings/ResetVault.dart';
-import '../settings/UISettings.dart';
-import '../settings/ChangeMaster.dart';
+import '../settings/reset_vault.dart';
+import '../settings/ui_settings.dart';
+import '../settings/change_master.dart';
 
 class Vault extends StatefulWidget {
   Vault({Key key, @required this.vaultHandler}) : super(key: key);

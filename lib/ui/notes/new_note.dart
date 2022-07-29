@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../core/constants.dart';
 import '../../core/note.dart';
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/vault_handler.dart';
 
 class NewNote extends StatefulWidget {

@@ -5,8 +5,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import '../../core/vault_handler.dart';
 import '../../core/password_strength.dart';
-import 'Prefabs.dart';
-import 'ConfirmPasswordDialog.dart';
+import 'prefabs.dart';
+import 'confirm_password_dialog.dart';
 
 typedef void Callback();
 

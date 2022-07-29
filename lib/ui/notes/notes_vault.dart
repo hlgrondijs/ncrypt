@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../../core/ncrypt_model.dart';
 
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/note.dart';
 import '../../core/vault_handler.dart';
-import '../general/Vault.dart';
+import '../general/vault.dart';
 
-import 'NewNote.dart';
-import 'EditNote.dart';
-import 'ViewNote.dart';
+import 'new_note.dart';
+import 'edit_note.dart';
+import 'view_note.dart';
 
 class NotesVault extends StatefulWidget {
   NotesVault({

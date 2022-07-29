@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/ncrypt.dart';
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/constants.dart';
 
 class UISettings extends StatefulWidget {

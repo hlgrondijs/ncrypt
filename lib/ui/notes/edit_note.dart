@@ -5,7 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../core/ncrypt_model.dart';
 
 import '../../core/note.dart';
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/vault_handler.dart';
 
 class EditNote extends StatefulWidget {

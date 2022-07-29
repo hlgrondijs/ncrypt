@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/note.dart';
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 
 class ViewNote extends StatefulWidget {
   ViewNote({Key key, @required this.note}) : super(key: key);

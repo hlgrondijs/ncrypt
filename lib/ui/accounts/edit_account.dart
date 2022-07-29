@@ -4,10 +4,10 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../core/ncrypt_model.dart';
 import '../../core/constants.dart';
 import '../../core/account.dart';
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/vault_handler.dart';
 
-import '../general/PasswordStrengthIndicator.dart';
+import '../general/password_strength_indicator.dart';
 
 class EditAccount extends StatefulWidget {
   const EditAccount({Key key, @required this.account}) : super(key: key);

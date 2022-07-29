@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/vault_handler.dart';
-import '../general/PasswordStrengthIndicator.dart';
+import '../general/password_strength_indicator.dart';
 
 class ChangeMaster extends StatefulWidget {
   ChangeMaster({Key key, @required this.vaultHandler}) : super(key: key);

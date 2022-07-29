@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../core/account.dart';
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/constants.dart';
 import '../../core/vault_handler.dart';
 
-import '../general/PasswordStrengthIndicator.dart';
+import '../general/password_strength_indicator.dart';
 
 class NewAccount extends StatefulWidget {
   NewAccount({Key key, @required this.vaultHandler}) : super(key: key);

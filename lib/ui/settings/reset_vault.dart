@@ -4,7 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../core/ncrypt_model.dart';
 import '../../core/vault_handler.dart';
 
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/ncrypt.dart';
 
 class ResetVault extends StatefulWidget {

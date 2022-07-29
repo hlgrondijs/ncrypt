@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../../core/ncrypt_model.dart';
 
-import 'Unlock.dart';
-import 'SetupPassword.dart';
-import 'Prefabs.dart';
-import 'Landing.dart';
+import 'unlock.dart';
+import 'setup_password.dart';
+import 'prefabs.dart';
+import 'landing.dart';
 
 class VaultDoor extends StatefulWidget {
   @override

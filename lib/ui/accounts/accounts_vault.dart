@@ -4,13 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../../core/ncrypt_model.dart';
 
-import '../general/Prefabs.dart';
+import '../general/prefabs.dart';
 import '../../core/account.dart';
 import '../../core/vault_handler.dart';
 
-import 'EditAccount.dart';
-import 'NewAccount.dart';
-import '../general/Vault.dart';
+import 'edit_account.dart';
+import 'new_account.dart';
+import '../general/vault.dart';
 
 class AccountsVault extends StatefulWidget {
   AccountsVault({
