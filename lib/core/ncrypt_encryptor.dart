@@ -16,7 +16,7 @@ class NcryptEncryptor {
   KeyDerivator keyDerivator = new KeyDerivator("SHA-1/HMAC/PBKDF2");
   Pbkdf2Parameters cipherParameters;
 
-  NcryptEncryptor(password, salt) {
+  NcryptEncryptor(String password, String salt) {
     masterPassword = password;
 
     List<int> saltBytes = utf8.encode(salt);
@@ -69,7 +69,6 @@ class NcryptEncryptor {
           Encrypted.fromBase64(testStringIV["test_string_encrypted"]),
           iv: iv);
     } catch (e) {
-      print(e);
       return false;
     }
 

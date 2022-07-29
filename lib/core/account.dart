@@ -14,7 +14,6 @@ class Account {
   Account(this.id, this.accountname, this.username, this.password);
 }
 
-
 class EncryptedAccount {
   int id;
   Encrypted accountname, username, password;
@@ -22,15 +21,16 @@ class EncryptedAccount {
 
   EncryptedAccount.empty() {
     this.id = -1;
-    this.accountname = Encrypted.fromUtf8('');
-    this.username = Encrypted.fromUtf8('');
-    this.password = Encrypted.fromUtf8('');
+    this.accountname = Encrypted.fromBase64('');
+    this.username = Encrypted.fromBase64('');
+    this.password = Encrypted.fromBase64('');
     this.accountnameIV = '';
     this.usernameIV = '';
     this.passwordIV = '';
   }
 
-  EncryptedAccount(id, accountname, username, password, accountnameIV, usernameIV, passwordIV) {
+  EncryptedAccount(id, accountname, username, password, accountnameIV,
+      usernameIV, passwordIV) {
     this.id = id;
     this.accountname = Encrypted.fromBase64(accountname);
     this.username = Encrypted.fromBase64(username);

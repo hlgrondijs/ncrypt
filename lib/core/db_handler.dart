@@ -72,12 +72,17 @@ class DbHandler2 {
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'ncrypt.db');
 
-    return await openDatabase(path, version: 1, readOnly: false,
-        onCreate: (Database db, int version) async {
-      await initializeDatabase(db, version);
-    }, onUpgrade: (Database db, int oldVersion, int newVersion) async {
-      // migrations go here
-    });
+    return await openDatabase(
+      path,
+      version: 1,
+      readOnly: false,
+      onCreate: (Database db, int version) async {
+        await initializeDatabase(db, version);
+      },
+      onUpgrade: (Database db, int oldVersion, int newVersion) async {
+        // migrations go here
+      },
+    );
   }
 
   Future resetDatabase() async {

@@ -14,6 +14,9 @@ class NCryptModel extends Model {
 
   NcryptEncryptor _nCryptEncryptor;
   NcryptEncryptor get nCryptEncryptor => _nCryptEncryptor;
+  set nCryptEncryptor(encryptor) {
+    _nCryptEncryptor = encryptor;
+  }
 
   VaultHandler get vaultHandler => VaultHandler(_nCryptEncryptor);
 
@@ -34,7 +37,6 @@ class NCryptModel extends Model {
   Future init() async {
     await DbHandler2.db.initDb();
     String salt = await DbHandler2.db.getSalt();
-    print(salt);
     _nCryptEncryptor = NcryptEncryptor('', salt);
   }
 
@@ -49,7 +51,6 @@ class NCryptModel extends Model {
     sharedPreferences.setBool(PREF_FIRST_USE, !firstUse);
 
     _firstUse = !firstUse;
-    print(_firstUse);
     notifyListeners();
   }
 
