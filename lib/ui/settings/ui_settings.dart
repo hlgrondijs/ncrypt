@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/NCrypt.dart';
+import '../../core/ncrypt.dart';
 import '../general/Prefabs.dart';
-import '../../core/Constants.dart';
+import '../../core/constants.dart';
 
 class UISettings extends StatefulWidget {
   @override
@@ -31,9 +31,7 @@ class _UISettingsState extends State<UISettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('UI Settings')
-      ),
+      appBar: AppBar(title: Text('UI Settings')),
       body: Container(
         decoration: BoxDecoration(
           gradient: gradientBackground(context),
@@ -45,10 +43,7 @@ class _UISettingsState extends State<UISettings> {
               padding: EdgeInsets.all(30.0),
               child: Column(
                 children: [
-                  Text('Select a theme',
-                   style: TextStyle(
-                     fontSize: 20
-                   )),
+                  Text('Select a theme', style: TextStyle(fontSize: 20)),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -60,12 +55,9 @@ class _UISettingsState extends State<UISettings> {
                               groupValue: _themeRadio,
                               onChanged: (int value) {
                                 _changeTheme(value, context);
-
                               },
                             ),
-                            Text(
-                              'nCrypt'
-                            ),
+                            Text('nCrypt'),
                           ],
                         ),
                       ),
@@ -79,9 +71,7 @@ class _UISettingsState extends State<UISettings> {
                                 _changeTheme(value, context);
                               },
                             ),
-                            Text(
-                              'Light'
-                            ),
+                            Text('Light'),
                           ],
                         ),
                       ),
@@ -95,11 +85,9 @@ class _UISettingsState extends State<UISettings> {
                                 _changeTheme(value, context);
                               },
                             ),
-                            Text(
-                              'Neo'
-                            ),
-                          ]
-                        )
+                            Text('Neo'),
+                          ],
+                        ),
                       ),
                     ],
                   ),

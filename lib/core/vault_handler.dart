@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'dart:core';
 
 import 'package:scoped_model/scoped_model.dart';
-import 'NCryptModel.dart';
+import 'ncrypt_model.dart';
 
-import 'Account.dart';
-import 'Note.dart';
-import 'NCryptEncryptor.dart';
-import 'DbHandler.dart';
+import 'account.dart';
+import 'note.dart';
+import 'ncrypt_encryptor.dart';
+import 'db_handler.dart';
 
 class VaultHandler {
   // High-level app functionality methods.
@@ -42,9 +42,9 @@ class VaultHandler {
   Future changeMasterPassword(String newPassword) async {
     List<Account> decryptedAccountList = await getAccountsAndDecrypt();
     List<Note> decryptedNoteList = await getNotesAndDecrypt();
-    
+
     await setEncryptionKey(newPassword);
-    
+
     await DbHandler2.db.deleteAllAccounts();
     decryptedAccountList.forEach((Account account) async {
       await addAccount(account);
@@ -58,12 +58,14 @@ class VaultHandler {
 
   Future updateAccountsStateFromDB(BuildContext context) async {
     List<Account> accountList = await getAccountsAndDecrypt();
-    ScopedModel.of<NCryptModel>(context, rebuildOnChange: true).setAccountList(accountList);
+    ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
+        .setAccountList(accountList);
   }
 
   Future updateNotesStateFromDB(BuildContext context) async {
     List<Note> noteList = await getNotesAndDecrypt();
-    ScopedModel.of<NCryptModel>(context, rebuildOnChange: true).setNoteList(noteList);
+    ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
+        .setNoteList(noteList);
   }
 
   Future deleteAccount(int id) async {
@@ -74,11 +76,10 @@ class VaultHandler {
     await DbHandler2.db.deleteNote(id);
   }
 
-
-
   Future<Account> getAccountAndDecrypt(int id) async {
     EncryptedAccount encryptedAccount = await DbHandler2.db.getAccount(id);
-    Account decryptedAccount = await nCryptEncryptor.decryptAccount(encryptedAccount);
+    Account decryptedAccount =
+        await nCryptEncryptor.decryptAccount(encryptedAccount);
     return decryptedAccount;
   }
 
@@ -90,7 +91,8 @@ class VaultHandler {
 
   Future<List<Account>> getAccountsAndDecrypt() async {
     List<EncryptedAccount> encAccList = await DbHandler2.db.getAllAccounts();
-    List<Account> decAccList = await nCryptEncryptor.decryptAccountList(encAccList);
+    List<Account> decAccList =
+        await nCryptEncryptor.decryptAccountList(encAccList);
     return decAccList;
   }
 
@@ -101,13 +103,15 @@ class VaultHandler {
   }
 
   Future<int> addAccount(Account account) async {
-    EncryptedAccount encryptedAccount = await nCryptEncryptor.encryptAccount(account);
+    EncryptedAccount encryptedAccount =
+        await nCryptEncryptor.encryptAccount(account);
     int id = await DbHandler2.db.putAccount(encryptedAccount);
     return id;
   }
 
   Future updateAccount(Account account) async {
-    EncryptedAccount encryptedAccount = await nCryptEncryptor.encryptAccount(account);
+    EncryptedAccount encryptedAccount =
+        await nCryptEncryptor.encryptAccount(account);
     await DbHandler2.db.updateAccount(encryptedAccount);
   }
 
@@ -121,7 +125,6 @@ class VaultHandler {
     EncryptedNote encryptedNote = await nCryptEncryptor.encryptNote(note);
     await DbHandler2.db.updateNote(encryptedNote);
   }
-
 
   Future reorderNotes(List<Note> noteList) async {
     await DbHandler2.db.reorderNotes(noteList);

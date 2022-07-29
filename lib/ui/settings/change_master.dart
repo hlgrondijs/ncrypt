@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import '../general/Prefabs.dart';
-import '../../core/VaultHandler.dart';
+import '../../core/vault_handler.dart';
 import '../general/PasswordStrengthIndicator.dart';
 
-
 class ChangeMaster extends StatefulWidget {
-  ChangeMaster({ Key key, @required this.vaultHandler}) : super(key: key);
+  ChangeMaster({Key key, @required this.vaultHandler}) : super(key: key);
 
   final VaultHandler vaultHandler;
 
@@ -16,7 +15,8 @@ class ChangeMaster extends StatefulWidget {
 class _ChangeMasterState extends State<ChangeMaster> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _confirmationFormKey = GlobalKey<FormState>();
-  final GlobalKey<PasswordStrengthIndicatorState> _passwordStrengthKey = GlobalKey<PasswordStrengthIndicatorState>();
+  final GlobalKey<PasswordStrengthIndicatorState> _passwordStrengthKey =
+      GlobalKey<PasswordStrengthIndicatorState>();
 
   TextEditingController _newPasswordController = TextEditingController();
 
@@ -30,7 +30,8 @@ class _ChangeMasterState extends State<ChangeMaster> {
   @override
   void initState() {
     _newPasswordController.addListener(() {
-      _passwordStrengthKey.currentState.onPasswordChange(_newPasswordController.text);
+      _passwordStrengthKey.currentState
+          .onPasswordChange(_newPasswordController.text);
     });
     super.initState();
   }
@@ -48,7 +49,7 @@ class _ChangeMasterState extends State<ChangeMaster> {
   Widget mBody() {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
-        return  SingleChildScrollView(
+        return SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(
               minHeight: viewportConstraints.maxHeight,
@@ -57,16 +58,16 @@ class _ChangeMasterState extends State<ChangeMaster> {
               key: _formKey,
               child: Container(
                 padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 30.0),
-                decoration: BoxDecoration(
-                  gradient: gradientBackground(context)
-                ),
+                decoration:
+                    BoxDecoration(gradient: gradientBackground(context)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Flexible(
-                      child: Text('To change your master password, please enter your current master password and a new one.')
+                      child: Text(
+                          'To change your master password, please enter your current master password and a new one.'),
                     ),
                     Container(
                       height: 120.0,
@@ -74,18 +75,23 @@ class _ChangeMasterState extends State<ChangeMaster> {
                         decoration: InputDecoration(
                           icon: Icon(Icons.vpn_key),
                           labelText: 'Current master password',
-                          helperText: "Enter your current password to confirm it's you",
+                          helperText:
+                              "Enter your current password to confirm it's you",
                           suffixIcon: IconButton(
-                            icon: _currentPasswordVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                            icon: _currentPasswordVisible
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off),
                             onPressed: _toggleCurrentPasswordVisibility,
                           ),
                         ),
                         obscureText: !_currentPasswordVisible,
                         keyboardType: TextInputType.visiblePassword,
-                        onSaved: (String currentPass) { currentPassword = currentPass; },
+                        onSaved: (String currentPass) {
+                          currentPassword = currentPass;
+                        },
                         validator: _validatePassword,
                       ),
-                    ),  
+                    ),
                     Container(
                       height: 120.0,
                       child: TextFormField(
@@ -95,13 +101,17 @@ class _ChangeMasterState extends State<ChangeMaster> {
                           labelText: 'New master password',
                           helperText: "Enter your new masterpassword",
                           suffixIcon: IconButton(
-                            icon: _newPasswordVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                            icon: _newPasswordVisible
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off),
                             onPressed: _toggleNewPasswordVisibility,
                           ),
                         ),
                         obscureText: !_newPasswordVisible,
                         keyboardType: TextInputType.visiblePassword,
-                        onSaved: (String newPass) { newPassword = newPass; },
+                        onSaved: (String newPass) {
+                          newPassword = newPass;
+                        },
                         validator: _validatePassword,
                       ),
                     ),
@@ -111,8 +121,8 @@ class _ChangeMasterState extends State<ChangeMaster> {
                         PasswordStrengthIndicator(
                           key: _passwordStrengthKey,
                           initialPassword: '',
-                        )
-                      ]
+                        ),
+                      ],
                     ),
                     Container(
                       height: 60.0,
@@ -131,7 +141,7 @@ class _ChangeMasterState extends State<ChangeMaster> {
             ),
           ),
         );
-      }
+      },
     );
   }
 
@@ -152,6 +162,7 @@ class _ChangeMasterState extends State<ChangeMaster> {
       _currentPasswordVisible = !_currentPasswordVisible;
     });
   }
+
   _toggleNewPasswordVisibility() {
     setState(() {
       _newPasswordVisible = !_newPasswordVisible;
@@ -165,7 +176,8 @@ class _ChangeMasterState extends State<ChangeMaster> {
 
       FocusScope.of(context).requestFocus(new FocusNode());
 
-      bool isValid = await widget.vaultHandler.testPasswordValid(currentPassword);
+      bool isValid =
+          await widget.vaultHandler.testPasswordValid(currentPassword);
       if (isValid) {
         setState(() {
           _isValidPassword = true;
@@ -186,20 +198,19 @@ class _ChangeMasterState extends State<ChangeMaster> {
                   child: Text('Accept'),
                   onPressed: () {
                     //Validate
-                    final FormState confirmationForm =_confirmationFormKey.currentState;
+                    final FormState confirmationForm =
+                        _confirmationFormKey.currentState;
                     if (confirmationForm.validate()) {
                       accepted = true;
                       Navigator.of(context).pop();
                     }
                   },
-                )
+                ),
               ],
               content: Form(
                 key: _confirmationFormKey,
                 child: TextFormField(
-                  decoration: InputDecoration(
-                    helperText: 'Type it again'
-                  ),
+                  decoration: InputDecoration(helperText: 'Type it again'),
                   maxLength: 64,
                   obscureText: true,
                   keyboardType: TextInputType.visiblePassword,
@@ -213,7 +224,7 @@ class _ChangeMasterState extends State<ChangeMaster> {
               ),
               title: Text('Confirm password'),
             );
-          }
+          },
         );
         if (accepted) {
           showLoadingSpinner(context, 'Changing password');
@@ -229,7 +240,5 @@ class _ChangeMasterState extends State<ChangeMaster> {
       }
       form.validate();
     }
-
   }
 }
-

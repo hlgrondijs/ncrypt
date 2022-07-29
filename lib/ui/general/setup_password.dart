@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../core/VaultHandler.dart';
-import '../../core/PasswordStrength.dart';
+import '../../core/vault_handler.dart';
+import '../../core/password_strength.dart';
 import 'Prefabs.dart';
 import 'ConfirmPasswordDialog.dart';
 
@@ -19,10 +19,9 @@ class SetupPassword extends StatefulWidget {
   _SetupPasswordState createState() => new _SetupPasswordState();
 }
 
-
 class _SetupPasswordState extends State<SetupPassword> {
   final _formKey = GlobalKey<FormState>();
-  final _confirmationFormKey =GlobalKey<FormState>();
+  final _confirmationFormKey = GlobalKey<FormState>();
   TextEditingController _controller = TextEditingController();
 
   String masterpass1;
@@ -51,11 +50,11 @@ class _SetupPasswordState extends State<SetupPassword> {
             ),
             child: Container(
               padding: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 0.0),
-              child: body()
+              child: body(),
             ),
-          )
+          ),
         );
-      }
+      },
     );
   }
 
@@ -70,14 +69,12 @@ class _SetupPasswordState extends State<SetupPassword> {
               child: Icon(
                 MdiIcons.cellphoneKey,
                 size: 50.0,
-              )
+              ),
             ),
             Container(
               child: Text(
                 'NCRYPT',
-                style: TextStyle(
-                  fontSize: 24.0
-                ),
+                style: TextStyle(fontSize: 24.0),
               ),
             )
           ],
@@ -97,13 +94,15 @@ class _SetupPasswordState extends State<SetupPassword> {
                   decoration: InputDecoration(
                     helperText: 'Choose a master password',
                     suffixIcon: IconButton(
-                      icon: _passwordVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                      icon: _passwordVisible
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off),
                       onPressed: _togglePasswordVisiblity,
-                    )
+                    ),
                   ),
                   maxLength: 64,
                   obscureText: !_passwordVisible,
-                  onSaved: (String input) { 
+                  onSaved: (String input) {
                     masterpass1 = input;
                   },
                   keyboardType: TextInputType.visiblePassword,
@@ -113,8 +112,8 @@ class _SetupPasswordState extends State<SetupPassword> {
                     } else {
                       return null;
                     }
-                  }
-                )
+                  },
+                ),
               ),
             ],
           ),
@@ -130,18 +129,13 @@ class _SetupPasswordState extends State<SetupPassword> {
                       margin: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
                       child: Text(
                         'Password Strength:',
-                        style: TextStyle(
-                          fontSize: 12.0
-                        )
+                        style: TextStyle(fontSize: 12.0),
                       ),
                     ),
                     GestureDetector(
                       child: Container(
                         margin: EdgeInsets.fromLTRB(5.0, 15.0, 0.0, 0.0),
-                        child: Icon(
-                          Icons.help,
-                          size: 14.0
-                        )
+                        child: Icon(Icons.help, size: 14.0),
                       ),
                       onTap: _showPasswordStrengthTooltip,
                     )
@@ -162,17 +156,17 @@ class _SetupPasswordState extends State<SetupPassword> {
                     backgroundColor: Theme.of(context).primaryColor,
                     progressColor: strengthColor,
                   ),
-                ),  
+                ),
               ],
             ),
-          ]
-        ),          
+          ],
+        ),
         Container(
           child: FloatingActionButton(
             onPressed: () {
               _setupMasterPassword();
             },
-            child: Text('OK')
+            child: Text('OK'),
           ),
         ),
       ],
@@ -190,19 +184,17 @@ class _SetupPasswordState extends State<SetupPassword> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-            )
+            ),
           ],
           content: Container(
             child: Text(
               'The Password Strength bar shows how many estimated bits of entropy your password has. It should be as high as possible.\n\n'
               'Try to aim for 70 bits or higher to make your password hard to guess.',
-              style: TextStyle(
-                fontSize: 12.0
-              )
-            )
+              style: TextStyle(fontSize: 12.0),
+            ),
           ),
         );
-      }
+      },
     );
   }
 
@@ -214,7 +206,7 @@ class _SetupPasswordState extends State<SetupPassword> {
 
   _setupMasterPassword() async {
     bool accepted = false;
-    final FormState formState =_formKey.currentState;
+    final FormState formState = _formKey.currentState;
     if (!formState.validate()) {
       return;
     }
@@ -241,7 +233,7 @@ class _SetupPasswordState extends State<SetupPassword> {
                   Navigator.of(context).pop();
                 }
               },
-            )
+            ),
           ],
           content: ConfirmPasswordDialog(
             confirmationFormKey: _confirmationFormKey,
@@ -249,7 +241,7 @@ class _SetupPasswordState extends State<SetupPassword> {
           ),
           title: Text('Confirm password'),
         );
-      }
+      },
     );
 
     if (accepted) {
@@ -272,26 +264,20 @@ class _SetupPasswordState extends State<SetupPassword> {
       if (bits <= 24) {
         strengthColor = Colors.red;
         strengthIcon = Icon(MdiIcons.emoticonAngry);
-      }
-      else if (bits <= 45) {
+      } else if (bits <= 45) {
         strengthColor = Colors.orange;
         strengthIcon = Icon(MdiIcons.emoticonSad);
-      }
-      else if (bits <= 67) {
+      } else if (bits <= 67) {
         strengthColor = Colors.yellow;
         strengthIcon = Icon(MdiIcons.emoticonNeutral);
-      }
-      else if ( bits <= 81) {
+      } else if (bits <= 81) {
         strengthColor = Colors.lightGreen;
         strengthIcon = Icon(MdiIcons.emoticonHappy);
-      }
-      else {
+      } else {
         strengthColor = Colors.green;
         strengthIcon = Icon(MdiIcons.emoticonExcited);
       }
-      
-      
-      
+
       if (bits > 100) {
         level = 100;
       } else {

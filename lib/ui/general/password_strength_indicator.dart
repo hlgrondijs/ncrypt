@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import '../../core/PasswordStrength.dart';
+import '../../core/password_strength.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-
 class PasswordStrengthIndicator extends StatefulWidget {
-  PasswordStrengthIndicator({Key key, @required this.initialPassword}) : super(key: key);
+  PasswordStrengthIndicator({Key key, @required this.initialPassword})
+      : super(key: key);
 
   final String initialPassword;
 
@@ -48,33 +48,29 @@ class PasswordStrengthIndicatorState extends State<PasswordStrengthIndicator> {
   void onPasswordChange(String password) {
     double score = entropizer.evaluate(password);
     int bits = score.round();
-        setState(() {
+    setState(() {
       if (bits <= 24) {
         strengthColor = Colors.red;
         strengthIcon = Icon(MdiIcons.emoticonAngry);
-      }
-      else if (bits <= 45) {
+      } else if (bits <= 45) {
         strengthColor = Colors.orange;
         strengthIcon = Icon(MdiIcons.emoticonSad);
-      }
-      else if (bits <= 67) {
+      } else if (bits <= 67) {
         strengthColor = Colors.yellow;
         strengthIcon = Icon(MdiIcons.emoticonNeutral);
-      }
-      else if ( bits <= 81) {
+      } else if (bits <= 81) {
         strengthColor = Colors.lightGreen;
         strengthIcon = Icon(MdiIcons.emoticonHappy);
-      }
-      else {
+      } else {
         strengthColor = Colors.green;
         strengthIcon = Icon(MdiIcons.emoticonExcited);
       }
-      
+
       if (bits > 100) {
         level = 100;
       } else {
         level = bits;
       }
-    });   
+    });
   }
 }

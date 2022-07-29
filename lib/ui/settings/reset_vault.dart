@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:scoped_model/scoped_model.dart';
-import '../../core/NCryptModel.dart';
-import '../../core/VaultHandler.dart';
+import '../../core/ncrypt_model.dart';
+import '../../core/vault_handler.dart';
 
 import '../general/Prefabs.dart';
-import '../../core/NCrypt.dart';
-
+import '../../core/ncrypt.dart';
 
 class ResetVault extends StatefulWidget {
   const ResetVault({
@@ -25,9 +24,7 @@ class _ResetVaultState extends State<ResetVault> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Reset vault')
-      ),
+      appBar: AppBar(title: Text('Reset vault')),
       body: resetVaultBody(),
     );
   }
@@ -50,26 +47,28 @@ class _ResetVaultState extends State<ResetVault> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget> [
+                  children: <Widget>[
                     Container(
                       child: Text(
                         'This will reset the vault to its default settings. Any data stored on this device will be lost!',
                         style: TextStyle(
                           fontSize: 12.0,
-                        )  
+                        ),
                       ),
                     ),
                     Container(
                       child: TextFormField(
                         decoration: InputDecoration(
-                          icon: Icon(Icons.vpn_key),
-                          labelText: 'Current master password',
-                          helperText: 'Enter your current master password to confirm the vault reset'
-                        ),
+                            icon: Icon(Icons.vpn_key),
+                            labelText: 'Current master password',
+                            helperText:
+                                'Enter your current master password to confirm the vault reset'),
                         keyboardType: TextInputType.visiblePassword,
-                        onSaved: (String currMpass) { currentMasterpassword = currMpass; },
+                        onSaved: (String currMpass) {
+                          currentMasterpassword = currMpass;
+                        },
                         validator: _validatePassword,
-                      )
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
@@ -78,16 +77,16 @@ class _ResetVaultState extends State<ResetVault> {
                         elevation: 5.0,
                         onPressed: () {
                           _resetVault();
-                        }
-                      )
-                    )
-                  ]
-                )
-              )
-            )
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         );
-      }
+      },
     );
   }
 
@@ -109,8 +108,10 @@ class _ResetVaultState extends State<ResetVault> {
     form.save();
     FocusScope.of(context).requestFocus(new FocusNode());
     if (form.validate()) {
-      VaultHandler vaultHandler = ScopedModel.of<NCryptModel>(context).vaultHandler;
-      if (vaultHandler.nCryptEncryptor.masterPassword == currentMasterpassword) {
+      VaultHandler vaultHandler =
+          ScopedModel.of<NCryptModel>(context).vaultHandler;
+      if (vaultHandler.nCryptEncryptor.masterPassword ==
+          currentMasterpassword) {
         vaultHandler.resetVault().then((_) async {
           await ScopedModel.of<NCryptModel>(context).toggleFirstUse();
           await ScopedModel.of<NCryptModel>(context).init();
@@ -124,15 +125,13 @@ class _ResetVaultState extends State<ResetVault> {
                     child: Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
-                    }
-                  )
+                    },
+                  ),
                 ],
-                content: Text(
-                  'Your vault has been reset. '
-                  'You will now be redirected the password setup screen.'
-                )
+                content: Text('Your vault has been reset. '
+                    'You will now be redirected the password setup screen.'),
               );
-            }
+            },
           );
 
           Navigator.pop(context, true);
@@ -144,6 +143,5 @@ class _ResetVaultState extends State<ResetVault> {
       }
       form.validate();
     }
-    
   }
 }

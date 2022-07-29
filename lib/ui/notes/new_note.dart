@@ -1,46 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:scoped_model/scoped_model.dart';
-import '../../core/NCryptModel.dart';
-
-import '../../core/Note.dart';
+import '../../core/constants.dart';
+import '../../core/note.dart';
 import '../general/Prefabs.dart';
-import '../../core/VaultHandler.dart';
+import '../../core/vault_handler.dart';
 
-class EditNote extends StatefulWidget {
-  const EditNote({
-    Key key,
-    @required this.note
-  }) : super(key: key);
+class NewNote extends StatefulWidget {
+  NewNote({Key key, @required this.vaultHandler}) : super(key: key);
 
-  final Note note;
+  final VaultHandler vaultHandler;
 
   @override
-  _EditNoteState createState() => _EditNoteState();
+  _NewNoteState createState() => _NewNoteState();
 }
 
-class _EditNoteState extends State<EditNote> {
+class _NewNoteState extends State<NewNote> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController textBoxController;
-
-  @override
-  void initState() {
-    super.initState();
-    textBoxController = TextEditingController(text: widget.note.content);
-  }
+  TextEditingController textBoxController = TextEditingController();
+  Note newNote = new Note(-1, '', '');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Edit note'),
-      ),
-      body: editNoteBody(),
+      appBar: AppBar(title: Text('New note')),
+      body: body(),
     );
   }
 
-  Widget editNoteBody() {
+  Widget body() {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return SingleChildScrollView(
@@ -59,58 +47,61 @@ class _EditNoteState extends State<EditNote> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Text('Store a new note using the form below'),
                     Container(
                       child: TextFormField(
+                        maxLength: MAX_TITLE_LENGTH,
                         decoration: InputDecoration(
                           icon: Icon(Icons.title),
                           labelText: 'Title',
-                          helperText: 'The title of your note',
+                          helperText: 'Enter the title of your note',
                         ),
-                        initialValue: widget.note.title,
-                        maxLength: 40,
-                        maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         keyboardType: TextInputType.text,
-                        onSaved: (String title) { widget.note.title = title; }
-                      )
+                        onSaved: (String title) {
+                          newNote.title = title;
+                        },
+                      ),
                     ),
                     Container(
                       child: TextField(
                         decoration: InputDecoration(
                           icon: Icon(Icons.edit),
                           labelText: 'Note content',
+                          helperText: 'Enter the text of your note',
                         ),
                         keyboardType: TextInputType.multiline,
                         maxLines: 5,
-                        maxLength: 500,
+                        maxLength: MAX_CONTENT_LENGTH,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         controller: textBoxController,
-                      )
+                      ),
                     ),
                     Container(
-                      margin:EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                      child: confirmationButton(storeNote),
+                      child: FloatingActionButton(
+                        child: Icon(Icons.check),
+                        elevation: 5.0,
+                        onPressed: () {
+                          _storeNote();
+                        },
+                      ),
                     ),
-                  ]
-                )
-              )
-            )
-          )
+                  ],
+                ),
+              ),
+            ),
+          ),
         );
-      }
+      },
     );
   }
 
-  storeNote() {
+  _storeNote() {
     final FormState form = _formKey.currentState;
     form.save();
-    widget.note.content = textBoxController.text;
+    newNote.content = textBoxController.text;
 
-    VaultHandler vaultHandler = ScopedModel.of<NCryptModel>(context).vaultHandler;
-    vaultHandler.updateNote(widget.note).then((_) {
-      vaultHandler.getAccountsAndDecrypt().then((accList) {
-        ScopedModel.of<NCryptModel>(context).setAccountList(accList);
-      });
-      Navigator.pop(context);
+    widget.vaultHandler.addNote(newNote).then((id) {
+      Navigator.pop(context, id);
     });
   }
 }

@@ -6,11 +6,11 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:scoped_model/scoped_model.dart';
 
 import 'Vault.dart';
-import '../../core/VaultHandler.dart';
-import '../../core/NCryptModel.dart';
+import '../../core/vault_handler.dart';
+import '../../core/ncrypt_model.dart';
 
-import '../../core/Account.dart';
-import '../../core/Note.dart';
+import '../../core/account.dart';
+import '../../core/note.dart';
 import 'Prefabs.dart';
 
 typedef void Callback();
@@ -59,14 +59,12 @@ class _UnlockState extends State<Unlock> {
                           child: Icon(
                             MdiIcons.cellphoneKey,
                             size: 50.0,
-                          )
+                          ),
                         ),
                         Container(
                           child: Text(
                             'NCRYPT',
-                            style: TextStyle(
-                              fontSize: 24.0
-                            ),
+                            style: TextStyle(fontSize: 24.0),
                           ),
                         )
                       ],
@@ -76,7 +74,9 @@ class _UnlockState extends State<Unlock> {
                     decoration: InputDecoration(
                       helperText: 'Enter your master password to unlock nCrypt',
                       suffixIcon: IconButton(
-                        icon: _passwordVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                        icon: _passwordVisible
+                            ? Icon(Icons.visibility)
+                            : Icon(Icons.visibility_off),
                         onPressed: () {
                           setState(() {
                             _passwordVisible = !_passwordVisible;
@@ -85,7 +85,9 @@ class _UnlockState extends State<Unlock> {
                       ),
                     ),
                     obscureText: !_passwordVisible,
-                    onSaved: (String password) { masterPassword = password; },
+                    onSaved: (String password) {
+                      masterPassword = password;
+                    },
                     keyboardType: TextInputType.visiblePassword,
                     validator: _validatePassword,
                   ),
@@ -97,20 +99,19 @@ class _UnlockState extends State<Unlock> {
                       onPressed: () {
                         _submit();
                       },
-                    )
+                    ),
                   ),
                   Container(
-                    child: Text('v2.0.0')
-                  )
-                ],  
-              )
+                    child: Text('v2.0.0'),
+                  ),
+                ],
+              ),
             ),
           ),
         );
-      }
+      },
     );
   }
-
 
   String _validatePassword(String password) {
     if (password.isEmpty) {
@@ -139,7 +140,9 @@ class _UnlockState extends State<Unlock> {
         });
         form.validate();
 
-        widget.vaultHandler.setNCryptEncryptorParameters(masterPassword).then((_) async {
+        widget.vaultHandler
+            .setNCryptEncryptorParameters(masterPassword)
+            .then((_) async {
           form.reset();
           _passwordVisible = false;
           await _unlockVault();
@@ -166,11 +169,10 @@ class _UnlockState extends State<Unlock> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ScopedModelDescendant<NCryptModel> (
-          builder: (context, _, model) => Vault(
-            vaultHandler: widget.vaultHandler,
-          )
-        ),
+        builder: (context) => ScopedModelDescendant<NCryptModel>(
+            builder: (context, _, model) => Vault(
+                  vaultHandler: widget.vaultHandler,
+                )),
       ),
     ).then((exitCode) async {
       // After popping this route, clear memory!

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import '../../core/NCryptModel.dart';
+import '../../core/ncrypt_model.dart';
 
 import '../general/Prefabs.dart';
-import '../../core/Note.dart';
-import '../../core/VaultHandler.dart';
+import '../../core/note.dart';
+import '../../core/vault_handler.dart';
 import '../general/Vault.dart';
 
 import 'NewNote.dart';
@@ -12,7 +12,8 @@ import 'EditNote.dart';
 import 'ViewNote.dart';
 
 class NotesVault extends StatefulWidget {
-  NotesVault({Key key,
+  NotesVault({
+    Key key,
     @required this.scaffoldKey,
     @required this.noteList,
     @required this.vaultHandler,
@@ -43,7 +44,8 @@ class _NotesVaultState extends State<NotesVault> {
         child: ReorderableListView(
           onReorder: _onReorder,
           reverse: false,
-          children: _searchFilterNotes(_notes).map<Widget>(noteListItem).toList()
+          children:
+              _searchFilterNotes(_notes).map<Widget>(noteListItem).toList(),
         ),
         decoration: BoxDecoration(
           gradient: gradientBackground(context),
@@ -79,7 +81,7 @@ class _NotesVaultState extends State<NotesVault> {
                   children: [
                     Container(
                       padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-                      child: Icon(Icons.add),                  
+                      child: Icon(Icons.add),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -88,18 +90,17 @@ class _NotesVaultState extends State<NotesVault> {
                       child: Container(
                         child: Text(
                           '\nStart by adding a new note\n',
-                        )
-                      )
-                    )
-                  ]
-                )
-              )
-            )
-          ]
-        )
-      ); 
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
     }
-    
   }
 
   void _onReorder(int oldIndex, int newIndex) {
@@ -124,11 +125,13 @@ class _NotesVaultState extends State<NotesVault> {
             style: BorderStyle.solid,
           ),
         ),
-        boxShadow: [BoxShadow(
-          color: Theme.of(context).shadowColor,
-          blurRadius: 4.0,
-          offset: Offset(0.0, 3.0),
-        )],
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor,
+            blurRadius: 4.0,
+            offset: Offset(0.0, 3.0),
+          ),
+        ],
       ),
       child: ExpansionTile(
         key: PageStorageKey<Note>(note),
@@ -140,9 +143,7 @@ class _NotesVaultState extends State<NotesVault> {
           Container(
             padding: EdgeInsets.fromLTRB(25.0, 5.0, 25.0, 10.0),
             // height: 100.0,
-            constraints: BoxConstraints(
-              maxHeight: 250.0
-            ),
+            constraints: BoxConstraints(maxHeight: 250.0),
             width: MediaQuery.of(context).size.width * 0.85,
             child: Text(
               note.content,
@@ -164,9 +165,7 @@ class _NotesVaultState extends State<NotesVault> {
                     style: ElevatedButton.styleFrom(
                       elevation: 6.0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0)
-                        )
+                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
                       ),
                     ),
                     onPressed: () {
@@ -183,7 +182,7 @@ class _NotesVaultState extends State<NotesVault> {
                           child: Text('View'),
                         ),
                       ],
-                    )
+                    ),
                   ),
                 ),
                 Container(
@@ -191,9 +190,7 @@ class _NotesVaultState extends State<NotesVault> {
                     style: ElevatedButton.styleFrom(
                       elevation: 6.0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0)
-                        )
+                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
                       ),
                     ),
                     onPressed: () {
@@ -210,17 +207,15 @@ class _NotesVaultState extends State<NotesVault> {
                           child: Text('Edit'),
                         ),
                       ],
-                    )
+                    ),
                   ),
-                ),                
+                ),
                 Container(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 6.0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0)
-                        )
+                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
                       ),
                     ),
                     onPressed: () {
@@ -237,7 +232,7 @@ class _NotesVaultState extends State<NotesVault> {
                           child: Text('Delete'),
                         ),
                       ],
-                    )
+                    ),
                   ),
                 ),
               ],
@@ -255,7 +250,7 @@ class _NotesVaultState extends State<NotesVault> {
           children: [
             Container(
               padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-              child: Icon(Icons.drag_handle)
+              child: Icon(Icons.drag_handle),
             ),
             Flexible(
               child: Column(
@@ -267,7 +262,7 @@ class _NotesVaultState extends State<NotesVault> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24.0,
-                      color: Theme.of(context).secondaryHeaderColor                
+                      color: Theme.of(context).secondaryHeaderColor,
                     ),
                   ),
                   SizedBox(
@@ -288,40 +283,36 @@ class _NotesVaultState extends State<NotesVault> {
       context,
       MaterialPageRoute(
         builder: (context) => ScopedModelDescendant<NCryptModel>(
-          builder: (context, _, model) => NewNote(
-            vaultHandler: model.vaultHandler
-          ),
+          builder: (context, _, model) =>
+              NewNote(vaultHandler: model.vaultHandler),
         ),
       ),
     );
     if (newNoteID != null) {
       Note newNote = await widget.vaultHandler.getNoteAndDecrypt(newNoteID);
-      List<Note> nList =ScopedModel.of<NCryptModel>(context).noteList;
+      List<Note> nList = ScopedModel.of<NCryptModel>(context).noteList;
       nList.add(newNote);
-      ScopedModel.of<NCryptModel>(context, rebuildOnChange: true).setNoteList(nList);
+      ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
+          .setNoteList(nList);
     }
   }
 
   _navigateToViewNote(BuildContext context, Note note) async {
     await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ViewNote(note: note)
-      )
-    );
+        context, MaterialPageRoute(builder: (context) => ViewNote(note: note)));
   }
 
   _navigateToEditNote(BuildContext context, Note note) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => EditNote(note: note)
-      ),
+      MaterialPageRoute(builder: (context) => EditNote(note: note)),
     );
   }
 
   _reorderNotesInDB(List<Note> noteList) async {
-    ScopedModel.of<NCryptModel>(context, rebuildOnChange: false).vaultHandler.reorderNotes(noteList);
+    ScopedModel.of<NCryptModel>(context, rebuildOnChange: false)
+        .vaultHandler
+        .reorderNotes(noteList);
   }
 
   List<Note> _searchFilterNotes(List<Note> noteList) {
@@ -331,7 +322,12 @@ class _NotesVaultState extends State<NotesVault> {
     } else {
       List<Note> filteredNoteList = <Note>[];
       for (Note note in noteList) {
-        if (note.title.toLowerCase().contains(vaultState.searchFilter.toLowerCase()) || note.content.toLowerCase().contains(vaultState.searchFilter.toLowerCase())) {
+        if (note.title
+                .toLowerCase()
+                .contains(vaultState.searchFilter.toLowerCase()) ||
+            note.content
+                .toLowerCase()
+                .contains(vaultState.searchFilter.toLowerCase())) {
           filteredNoteList.add(note);
         }
       }
@@ -353,29 +349,31 @@ class _NotesVaultState extends State<NotesVault> {
               child: Text('Decline'),
               onPressed: () {
                 Navigator.of(context).pop();
-              }
+              },
             ),
             TextButton(
               child: Text('Accept'),
               onPressed: () {
                 accepted = true;
                 Navigator.of(context).pop();
-              }
-            )
-          ]
+              },
+            ),
+          ],
         );
-      }
+      },
     );
 
     if (accepted) {
-      VaultHandler vaultHandler = ScopedModel.of<NCryptModel>(context, rebuildOnChange: true).vaultHandler;
+      VaultHandler vaultHandler =
+          ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
+              .vaultHandler;
       vaultHandler.deleteNote(id);
       List<Note> nList = await vaultHandler.getNotesAndDecrypt();
-      ScopedModel.of<NCryptModel>(context, rebuildOnChange: true).setNoteList(nList);
+      ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
+          .setNoteList(nList);
       setState(() {
         _notes = nList;
       });
     }
   }
-
 }

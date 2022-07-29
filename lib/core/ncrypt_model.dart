@@ -1,15 +1,16 @@
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'DbHandler.dart';
-import 'Constants.dart';
-import 'NCryptEncryptor.dart';
-import 'Account.dart';
-import 'Note.dart';
-import 'VaultHandler.dart';
+import 'db_handler.dart';
+import 'constants.dart';
+import 'ncrypt_encryptor.dart';
+import 'account.dart';
+import 'note.dart';
+import 'vault_handler.dart';
 
 class NCryptModel extends Model {
-  NCryptModel(this._firstUse, this._hideLockDialog, this._accountList, this._noteList);
+  NCryptModel(
+      this._firstUse, this._hideLockDialog, this._accountList, this._noteList);
 
   NcryptEncryptor _nCryptEncryptor;
   NcryptEncryptor get nCryptEncryptor => _nCryptEncryptor;
@@ -26,7 +27,7 @@ class NCryptModel extends Model {
   List<Account> get accountList => _accountList;
 
   List<Note> _noteList;
-  List<Note> get noteList => _noteList; 
+  List<Note> get noteList => _noteList;
 
   SharedPreferences sharedPreferences;
 

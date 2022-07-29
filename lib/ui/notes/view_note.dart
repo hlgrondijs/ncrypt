@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/Note.dart';
+import '../../core/note.dart';
 import '../general/Prefabs.dart';
 
 class ViewNote extends StatefulWidget {
@@ -11,7 +11,6 @@ class ViewNote extends StatefulWidget {
   @override
   _ViewNoteState createState() => new _ViewNoteState();
 }
-
 
 class _ViewNoteState extends State<ViewNote> {
   @override
@@ -24,9 +23,7 @@ class _ViewNoteState extends State<ViewNote> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title)
-      ),
+      appBar: AppBar(title: Text(title)),
       body: viewNoteBody(),
     );
   }
@@ -48,15 +45,13 @@ class _ViewNoteState extends State<ViewNote> {
                 margin: EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 10.0),
                 child: Text(
                   widget.note.content,
-                  style: TextStyle(
-                    fontSize: 24.0
-                  ),
+                  style: TextStyle(fontSize: 24.0),
                 ),
               ),
             ),
           ),
         );
-      }
+      },
     );
   }
 }

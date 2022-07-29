@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import '../../core/NCryptModel.dart';
-import '../../core/Constants.dart';
-import '../../core/Account.dart';
+import '../../core/ncrypt_model.dart';
+import '../../core/constants.dart';
+import '../../core/account.dart';
 import '../general/Prefabs.dart';
-import '../../core/VaultHandler.dart';
+import '../../core/vault_handler.dart';
 
 import '../general/PasswordStrengthIndicator.dart';
 
 class EditAccount extends StatefulWidget {
-  const EditAccount({ Key key, @required this.account}) : super(key: key);
+  const EditAccount({Key key, @required this.account}) : super(key: key);
 
   final Account account;
 
@@ -20,7 +20,8 @@ class EditAccount extends StatefulWidget {
 
 class _EditAccountState extends State<EditAccount> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<PasswordStrengthIndicatorState> _passwordStrengthKey = GlobalKey<PasswordStrengthIndicatorState>();
+  final GlobalKey<PasswordStrengthIndicatorState> _passwordStrengthKey =
+      GlobalKey<PasswordStrengthIndicatorState>();
 
   TextEditingController _passwordController;
   bool _passwordVisible = false;
@@ -29,7 +30,8 @@ class _EditAccountState extends State<EditAccount> {
   void initState() {
     _passwordController = TextEditingController(text: widget.account.password);
     _passwordController.addListener(() {
-      _passwordStrengthKey.currentState.onPasswordChange(_passwordController.text);
+      _passwordStrengthKey.currentState
+          .onPasswordChange(_passwordController.text);
     });
     super.initState();
   }
@@ -37,14 +39,12 @@ class _EditAccountState extends State<EditAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Edit account')
-      ),
+      appBar: AppBar(title: Text('Edit account')),
       body: mBody(),
     );
   }
 
-    Widget mBody() {
+  Widget mBody() {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return SingleChildScrollView(
@@ -57,24 +57,27 @@ class _EditAccountState extends State<EditAccount> {
               child: Container(
                 padding: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 30.0),
                 decoration: BoxDecoration(
-                  gradient: gradientBackground(context)   
-                ),                
+                  gradient: gradientBackground(context),
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget> [
+                  children: <Widget>[
                     Container(
                       // Accountname
                       child: TextFormField(
                         decoration: InputDecoration(
                           icon: Icon(Icons.public),
                           labelText: 'Accountname',
-                          helperText: 'Current accountname: ' + widget.account.accountname,
+                          helperText: 'Current accountname: ' +
+                              widget.account.accountname,
                         ),
                         initialValue: widget.account.accountname,
                         maxLength: MAX_ACCOUNTNAME_LENGTH,
                         keyboardType: TextInputType.text,
-                        onSaved: (String newAccountname) { widget.account.accountname = newAccountname; }
+                        onSaved: (String newAccountname) {
+                          widget.account.accountname = newAccountname;
+                        },
                       ),
                     ),
                     Container(
@@ -83,12 +86,15 @@ class _EditAccountState extends State<EditAccount> {
                         decoration: InputDecoration(
                           icon: Icon(Icons.account_box),
                           labelText: 'Username',
-                          helperText: 'Current username: ' + widget.account.username,
+                          helperText:
+                              'Current username: ' + widget.account.username,
                         ),
                         initialValue: widget.account.username,
                         maxLength: MAX_USERNAME_LENGTH,
                         keyboardType: TextInputType.emailAddress,
-                        onSaved: (String newUsername) { widget.account.username = newUsername; }
+                        onSaved: (String newUsername) {
+                          widget.account.username = newUsername;
+                        },
                       ),
                     ),
                     Container(
@@ -98,9 +104,12 @@ class _EditAccountState extends State<EditAccount> {
                         decoration: InputDecoration(
                           icon: Icon(Icons.vpn_key),
                           labelText: 'Password',
-                          helperText: 'Current password: ' + widget.account.password,
+                          helperText:
+                              'Current password: ' + widget.account.password,
                           suffixIcon: IconButton(
-                            icon: _passwordVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                            icon: _passwordVisible
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off),
                             onPressed: () {
                               setState(() {
                                 _passwordVisible = !_passwordVisible;
@@ -111,7 +120,9 @@ class _EditAccountState extends State<EditAccount> {
                         maxLength: MAX_PASSWORD_LENGTH,
                         obscureText: !_passwordVisible,
                         keyboardType: TextInputType.visiblePassword,
-                        onSaved: (String newPassword) { widget.account.password = newPassword; }
+                        onSaved: (String newPassword) {
+                          widget.account.password = newPassword;
+                        },
                       ),
                     ),
                     Row(
@@ -120,7 +131,7 @@ class _EditAccountState extends State<EditAccount> {
                         PasswordStrengthIndicator(
                           key: _passwordStrengthKey,
                           initialPassword: widget.account.password,
-                        )
+                        ),
                       ],
                     ),
                     Container(
@@ -140,7 +151,7 @@ class _EditAccountState extends State<EditAccount> {
             ),
           ),
         );
-      }
+      },
     );
   }
 
@@ -148,7 +159,8 @@ class _EditAccountState extends State<EditAccount> {
     final FormState form = _formKey.currentState;
     form.save();
 
-    VaultHandler vaultHandler =ScopedModel.of<NCryptModel>(context).vaultHandler;
+    VaultHandler vaultHandler =
+        ScopedModel.of<NCryptModel>(context).vaultHandler;
     vaultHandler.updateAccount(widget.account).then((_) {
       vaultHandler.getNotesAndDecrypt().then((nList) {
         ScopedModel.of<NCryptModel>(context).setNoteList(nList);

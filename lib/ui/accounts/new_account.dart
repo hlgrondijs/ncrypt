@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../core/Account.dart';
+import '../../core/account.dart';
 import '../general/Prefabs.dart';
-import '../../core/Constants.dart';
-import '../../core/VaultHandler.dart';
+import '../../core/constants.dart';
+import '../../core/vault_handler.dart';
 
 import '../general/PasswordStrengthIndicator.dart';
 
@@ -18,7 +18,8 @@ class NewAccount extends StatefulWidget {
 
 class _NewAccountState extends State<NewAccount> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<PasswordStrengthIndicatorState> _passwordStrengthKey = GlobalKey<PasswordStrengthIndicatorState>();
+  final GlobalKey<PasswordStrengthIndicatorState> _passwordStrengthKey =
+      GlobalKey<PasswordStrengthIndicatorState>();
 
   TextEditingController _passwordController;
   Account newAccount = new Account(-1, '', '', '');
@@ -29,7 +30,8 @@ class _NewAccountState extends State<NewAccount> {
   void initState() {
     _passwordController = new TextEditingController();
     _passwordController.addListener(() {
-      _passwordStrengthKey.currentState.onPasswordChange(_passwordController.text);  
+      _passwordStrengthKey.currentState
+          .onPasswordChange(_passwordController.text);
     });
     super.initState();
   }
@@ -37,9 +39,7 @@ class _NewAccountState extends State<NewAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('New account')
-      ),
+      appBar: AppBar(title: Text('New account')),
       body: body(),
     );
   }
@@ -57,12 +57,12 @@ class _NewAccountState extends State<NewAccount> {
               child: Container(
                 padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 30.0),
                 decoration: BoxDecoration(
-                  gradient: gradientBackground(context)        
-                ),                
+                  gradient: gradientBackground(context),
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget> [
+                  children: <Widget>[
                     Text('Store a new account using the form below.'),
                     Container(
                       child: TextFormField(
@@ -73,19 +73,22 @@ class _NewAccountState extends State<NewAccount> {
                         ),
                         maxLength: MAX_ACCOUNTNAME_LENGTH,
                         keyboardType: TextInputType.text,
-                        onSaved: (String accountname) { newAccount.accountname = accountname; }
+                        onSaved: (String accountname) {
+                          newAccount.accountname = accountname;
+                        },
                       ),
                     ),
                     Container(
                       child: TextFormField(
                         decoration: InputDecoration(
-                          icon: Icon(Icons.account_box),
-                          labelText: 'Username',
-                          helperText: 'Your username'
-                        ),
+                            icon: Icon(Icons.account_box),
+                            labelText: 'Username',
+                            helperText: 'Your username'),
                         maxLength: MAX_USERNAME_LENGTH,
                         keyboardType: TextInputType.emailAddress,
-                        onSaved: (String username) { newAccount.username = username; }
+                        onSaved: (String username) {
+                          newAccount.username = username;
+                        },
                       ),
                     ),
                     Container(
@@ -96,7 +99,9 @@ class _NewAccountState extends State<NewAccount> {
                           labelText: 'Password',
                           helperText: 'Your password',
                           suffixIcon: IconButton(
-                            icon: _passwordVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                            icon: _passwordVisible
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off),
                             onPressed: () {
                               setState(() {
                                 _passwordVisible = !_passwordVisible;
@@ -107,7 +112,9 @@ class _NewAccountState extends State<NewAccount> {
                         maxLength: MAX_PASSWORD_LENGTH,
                         obscureText: !_passwordVisible,
                         keyboardType: TextInputType.visiblePassword,
-                        onSaved: (String password) { newAccount.password = password; }
+                        onSaved: (String password) {
+                          newAccount.password = password;
+                        },
                       ),
                     ),
                     Row(
@@ -117,7 +124,7 @@ class _NewAccountState extends State<NewAccount> {
                           key: _passwordStrengthKey,
                           initialPassword: '',
                         )
-                      ]
+                      ],
                     ),
                     Container(
                       child: FloatingActionButton(
@@ -126,19 +133,17 @@ class _NewAccountState extends State<NewAccount> {
                         onPressed: () {
                           storeAccount();
                         },
-                      )
-                    )
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ),
         );
-      }
+      },
     );
   }
-
-
 
   storeAccount() {
     final FormState form = _formKey.currentState;

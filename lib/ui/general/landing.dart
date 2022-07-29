@@ -11,7 +11,6 @@ class Landing extends StatefulWidget {
   _LandingState createState() => new _LandingState();
 }
 
-
 class _LandingState extends State<Landing> {
   @override
   Widget build(BuildContext context) {
@@ -33,38 +32,33 @@ class _LandingState extends State<Landing> {
                         child: Icon(
                           MdiIcons.cellphoneKey,
                           size: 50.0,
-                        )
+                        ),
                       ),
                       Container(
                         child: Text(
                           'NCRYPT',
-                          style: TextStyle(
-                            fontSize: 24.0
-                          ),
+                          style: TextStyle(fontSize: 24.0),
                         ),
                       )
                     ],
                   ),
                 ),
-
                 Container(
                   child: Text(
-                    'nCrypt is a place to store your secrets, such as passwords and personal notes, in a secure and easy way.'
-                  )
+                    'nCrypt is a place to store your secrets, such as passwords and personal notes, in a secure and easy way.',
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
                   child: Row(
                     children: [
                       Container(
-                        child: Icon(
-                          Icons.warning
-                        ),
+                        child: Icon(Icons.warning),
                         margin: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
                       ),
                       Flexible(
                         child: Text(
-                          'For security & privacy reasons, your master password is not recoverable!'
+                          'For security & privacy reasons, your master password is not recoverable!',
                         ),
                       ),
                     ],
@@ -74,14 +68,12 @@ class _LandingState extends State<Landing> {
                   child: Row(
                     children: [
                       Container(
-                        child: Icon(
-                          Icons.warning
-                        ),
+                        child: Icon(Icons.warning),
                         margin: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
                       ),
                       Flexible(
                         child: Text(
-                          'When you lose your device, your passwords are also lost!'
+                          'When you lose your device, your passwords are also lost!',
                           // ' Use the backup function to mitigate this.'
                         ),
                       ),
@@ -92,14 +84,12 @@ class _LandingState extends State<Landing> {
                   child: Row(
                     children: [
                       Container(
-                        child: Icon(
-                          Icons.warning
-                        ),
+                        child: Icon(Icons.warning),
                         margin: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
                       ),
                       Flexible(
                         child: Text(
-                          'nCrypt will automatically lock when you minimize the app'
+                          'nCrypt will automatically lock when you minimize the app',
                           // ' Use the backup function to mitigate this.'
                         ),
                       ),
@@ -119,11 +109,11 @@ class _LandingState extends State<Landing> {
                       Flexible(
                         child: Text(
                           'Use the plus-icon to add a new account or note.',
-                          style: TextStyle(fontSize: 12.0)
-                        )
+                          style: TextStyle(fontSize: 12.0),
+                        ),
                       ),
-                    ]
-                  )
+                    ],
+                  ),
                 ),
                 Container(
                   child: Row(
@@ -135,11 +125,11 @@ class _LandingState extends State<Landing> {
                       Flexible(
                         child: Text(
                           'Use this icon to filter accounts or notes',
-                          style: TextStyle(fontSize: 12.0)
-                        )
-                      )
-                    ]
-                  )
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   child: Row(
@@ -151,11 +141,11 @@ class _LandingState extends State<Landing> {
                       Flexible(
                         child: Text(
                           'Use this icon to access your accounts',
-                          style: TextStyle(fontSize: 12.0)
-                        )
-                      )
-                    ]
-                  )
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   child: Row(
@@ -167,11 +157,11 @@ class _LandingState extends State<Landing> {
                       Flexible(
                         child: Text(
                           'Use this icon to access your notes',
-                          style: TextStyle(fontSize: 12.0)
-                        )
-                      )
-                    ]
-                  )
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   child: Row(
@@ -183,11 +173,11 @@ class _LandingState extends State<Landing> {
                       Flexible(
                         child: Text(
                           'Use this icon to access settings',
-                          style: TextStyle(fontSize: 12.0)
-                        )
-                      )
-                    ]
-                  )
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   child: Row(
@@ -199,14 +189,14 @@ class _LandingState extends State<Landing> {
                       Flexible(
                         child: Text(
                           'Use this icon to lock nCrypt',
-                          style: TextStyle(fontSize: 12.0)
-                        )
-                      )
-                    ]
-                  )
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Divider(
-                  height: 15.0
+                  height: 15.0,
                 ),
                 Container(
                   child: Row(
@@ -221,8 +211,8 @@ class _LandingState extends State<Landing> {
                           style: TextStyle(fontSize: 12.0),
                         ),
                       ),
-                    ]
-                  )
+                    ],
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
@@ -230,14 +220,14 @@ class _LandingState extends State<Landing> {
                     onPressed: () {
                       widget.onSubmit();
                     },
-                    child: Text('OK')
+                    child: Text('OK'),
                   ),
                 ),
-              ]
-            )
-          )
+              ],
+            ),
+          ),
         );
-      }
+      },
     );
   }
 }

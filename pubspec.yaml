@@ -36,7 +36,7 @@ dependencies:
   enum_to_string: ^2.0.1
   
 dev_dependencies:
-  test: ^1.10.0
+  test: ^1.21.4
   flutter_test:
     sdk: flutter
 

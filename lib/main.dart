@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:scoped_model/scoped_model.dart';
-import 'core/NCryptModel.dart';
+import 'core/ncrypt_model.dart';
 
-import 'core/NCrypt.dart';
-import 'core/DbHandler.dart';
+import 'core/ncrypt.dart';
+import 'core/db_handler.dart';
 
 // for development
 import 'package:flutter/rendering.dart';
-import 'core/Constants.dart';
+import 'core/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,9 +29,9 @@ void main() async {
     prefs.setString(PREF_THEME, DARK_THEME);
     prefs.setBool(PREF_FIRST_USE, true);
     prefs.setBool(PREF_HIDELOCKDIALOG, false);
-  } 
-  else {
-    if (isFirstUse) { // For after app reset
+  } else {
+    if (isFirstUse) {
+      // For after app reset
       prefs.setString(PREF_THEME, DARK_THEME);
       prefs.setBool(PREF_FIRST_USE, true);
       prefs.setBool(PREF_HIDELOCKDIALOG, false);
@@ -40,16 +40,13 @@ void main() async {
       hideLockDialog = prefs.getBool(PREF_HIDELOCKDIALOG);
     }
   }
-  
+
   /////
   // Run App
   /////
   NCryptModel nCryptModel = new NCryptModel(isFirstUse, hideLockDialog, [], []);
   await nCryptModel.init();
 
-  runApp(ScopedModel(
-    model: nCryptModel,
-    child: NCrypt(
-      themeString: themeString
-  )));
+  runApp(
+      ScopedModel(model: nCryptModel, child: NCrypt(themeString: themeString)));
 }

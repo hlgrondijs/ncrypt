@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:scoped_model/scoped_model.dart';
-import '../../core/NCryptModel.dart';
+import '../../core/ncrypt_model.dart';
 
 import 'Unlock.dart';
 import 'SetupPassword.dart';
 import 'Prefabs.dart';
-import '../../core/NCrypt.dart';
 import 'Landing.dart';
 
 class VaultDoor extends StatefulWidget {
@@ -40,18 +39,15 @@ class _VaultDoorState extends State<VaultDoor> {
             setState(() {
               isFirstUse = model.firstUse;
             });
-          }
-        )
+          },
+        ),
       );
     }
 
-    if (!isFirstUse)  {
+    if (!isFirstUse) {
       child = ScopedModelDescendant<NCryptModel>(
-        builder: (context, _, model) => Unlock(
-          lockVault: model.lockVault,
-          vaultHandler: model.vaultHandler
-        )
-      );
+          builder: (context, _, model) => Unlock(
+              lockVault: model.lockVault, vaultHandler: model.vaultHandler));
     }
 
     return Scaffold(
@@ -59,13 +55,11 @@ class _VaultDoorState extends State<VaultDoor> {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(30.0),
-            decoration: BoxDecoration(
-              gradient: gradientBackground(context)
-            ),
-            child: child
-          )
-        )
-      )
+            decoration: BoxDecoration(gradient: gradientBackground(context)),
+            child: child,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-
-import '../../core/NCryptModel.dart';
+import '../../core/ncrypt_model.dart';
 import 'LockDialog.dart';
-import '../../core/Account.dart';
-import '../../core/Note.dart';
+import '../../core/account.dart';
+import '../../core/note.dart';
 import 'Prefabs.dart';
-import '../../core/VaultHandler.dart';
+import '../../core/vault_handler.dart';
 
 import '../notes/NotesVault.dart';
 import '../notes/NewNote.dart';
@@ -21,8 +20,6 @@ import '../settings/ResetVault.dart';
 import '../settings/UISettings.dart';
 import '../settings/ChangeMaster.dart';
 
-
-
 class Vault extends StatefulWidget {
   Vault({Key key, @required this.vaultHandler}) : super(key: key);
 
@@ -31,7 +28,6 @@ class Vault extends StatefulWidget {
   @override
   VaultState createState() => new VaultState();
 }
-
 
 class VaultState extends State<Vault> with WidgetsBindingObserver {
   AppLifecycleState _lastLifecycleState;
@@ -54,7 +50,6 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
         searchFilter = searchController.text;
       });
     });
-
   }
 
   @override
@@ -109,9 +104,9 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
               icon: Icon(Icons.lock),
               label: 'Lock',
             ),
-          ]
+          ],
         ),
-      )
+      ),
     );
   }
 
@@ -119,10 +114,9 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
     if (index == 0) {
       return ScopedModelDescendant<NCryptModel>(
         builder: (context, _, model) => AccountsVault(
-          scaffoldKey: _scaffoldKey,
-          accountList: model.accountList,
-          vaultHandler: widget.vaultHandler
-        ),
+            scaffoldKey: _scaffoldKey,
+            accountList: model.accountList,
+            vaultHandler: widget.vaultHandler),
       );
     }
     if (index == 1) {
@@ -186,12 +180,11 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
           children: [
             Icon(Icons.note),
             Container(
-              margin:EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              margin: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
               child: Text('Notes'),
             ),
           ],
         ),
-
         bottom: searchTextField(),
         elevation: 8.0,
       );
@@ -200,9 +193,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
     return AppBar(
       automaticallyImplyLeading: false,
       leading: Icon(Icons.settings),
-      title: Text(
-        'Settings'
-      )
+      title: Text('Settings'),
     );
   }
 
@@ -281,7 +272,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
                       'Settings',
                       style: TextStyle(
                         fontSize: 24.0,
-                      )
+                      ),
                     ),
                   ),
                 ],
@@ -297,21 +288,18 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
                     children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-                        child: Icon(
-                          Icons.color_lens,
-                          size: 20.0
-                        ),
+                        child: Icon(Icons.color_lens, size: 20.0),
                       ),
                       Flexible(
                         child: ListTile(
                           title: Text('Color theme'),
                           onTap: () {
                             _uiSettings(context);
-                          }
-                        )
-                      )
-                    ]
-                  )
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * .15,
@@ -320,20 +308,17 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
                     children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-                        child: Icon(
-                          Icons.lock,
-                          size: 20.0
-                        ),
+                        child: Icon(Icons.lock, size: 20.0),
                       ),
                       Flexible(
                         child: ListTile(
                           title: Text('Change master password'),
                           onTap: () {
                             _changeMasterPassword(context);
-                          }
-                        )
-                      )
-                    ]
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -343,47 +328,41 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
                     children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-                        child: Icon(
-                          Icons.delete_forever,
-                          size: 20.0
-                        ),
+                        child: Icon(Icons.delete_forever, size: 20.0),
                       ),
                       Flexible(
                         child: ListTile(
                           title: Text('Reset nCrypt'),
                           onTap: () {
                             _resetDevice(context);
-                          }
-                        )
-                      )
-                    ]
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * .15,
-                  alignment: Alignment.center,                  
+                  alignment: Alignment.center,
                   child: Row(
                     children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-                        child: Icon(
-                          Icons.help,
-                          size: 20.0
-                        ),
+                        child: Icon(Icons.help, size: 20.0),
                       ),
                       Flexible(
                         child: ListTile(
                           title: Text('Help'),
                           onTap: () {
                             _help(context);
-                          }
-                        )
-                      )
-                    ]
-                  )
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ]
-            )
+              ],
+            ),
           ],
         ),
       ),
@@ -392,33 +371,29 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
 
   void _uiSettings(BuildContext context) {
     Navigator.of(context).pop();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => UISettings(),
-      )
-    );
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => UISettings(),
+    ));
   }
 
   void _changeMasterPassword(BuildContext context) {
     Navigator.of(context).pop();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ScopedModelDescendant<NCryptModel> (
-          builder: (context, _, model) => ChangeMaster(
-            vaultHandler: widget.vaultHandler,
-          ),
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ScopedModelDescendant<NCryptModel>(
+        builder: (context, _, model) => ChangeMaster(
+          vaultHandler: widget.vaultHandler,
         ),
-      )
-    );
+      ),
+    ));
   }
 
   void _resetDevice(BuildContext context) {
     Navigator.of(context).pop();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => ResetVault(),
-      )
-    ).then((passwordChanged) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(
+      builder: (context) => ResetVault(),
+    ))
+        .then((passwordChanged) {
       if (passwordChanged != null) {
         Navigator.of(context).pop();
       }
@@ -435,18 +410,18 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
               child: Container(
                 padding: EdgeInsets.all(30.0),
                 decoration: BoxDecoration(
-                  gradient: gradientBackground(context)
+                  gradient: gradientBackground(context),
                 ),
                 child: Landing(
                   onSubmit: () {
                     Navigator.of(context).pop();
-                  }
-                )
-              )
-            )
-          )
-        )
-      )
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -472,17 +447,18 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
       context,
       MaterialPageRoute(
         builder: (context) => ScopedModelDescendant<NCryptModel>(
-          builder: (context, _, model) => NewAccount(
-            vaultHandler: model.vaultHandler
-          ),
+          builder: (context, _, model) =>
+              NewAccount(vaultHandler: model.vaultHandler),
         ),
       ),
     );
     if (newAccountID != null) {
-      Account newAccount = await widget.vaultHandler.getAccountAndDecrypt(newAccountID);
+      Account newAccount =
+          await widget.vaultHandler.getAccountAndDecrypt(newAccountID);
       List<Account> accList = ScopedModel.of<NCryptModel>(context).accountList;
       accList.add(newAccount);
-      ScopedModel.of<NCryptModel>(context, rebuildOnChange: true).setAccountList(accList);
+      ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
+          .setAccountList(accList);
     }
   }
 
@@ -491,17 +467,17 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
       context,
       MaterialPageRoute(
         builder: (context) => ScopedModelDescendant<NCryptModel>(
-          builder: (context, _, model) => NewNote(
-            vaultHandler: model.vaultHandler
-          ),
+          builder: (context, _, model) =>
+              NewNote(vaultHandler: model.vaultHandler),
         ),
       ),
     );
     if (newNoteID != null) {
       Note newNote = await widget.vaultHandler.getNoteAndDecrypt(newNoteID);
-      List<Note> nList =ScopedModel.of<NCryptModel>(context).noteList;
+      List<Note> nList = ScopedModel.of<NCryptModel>(context).noteList;
       nList.add(newNote);
-      ScopedModel.of<NCryptModel>(context, rebuildOnChange: true).setNoteList(nList);
+      ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
+          .setNoteList(nList);
     }
   }
 
@@ -524,19 +500,20 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
                 onPressed: () {
                   lock = true;
                   if (dontShowLockHelperAgain) {
-                    ScopedModel.of<NCryptModel>(context).setHideLockDialog(true);
+                    ScopedModel.of<NCryptModel>(context)
+                        .setHideLockDialog(true);
                   }
                   Navigator.of(context).pop();
                 },
-              )
+              ),
             ],
             content: LockDialog(
               setDontShowAgainBool: _setHideLockDialogFormState,
             ),
             contentPadding: EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
-            title: Text('Lock your vault.')
+            title: Text('Lock your vault.'),
           );
-        }
+        },
       );
     } else {
       lock = true;
@@ -550,4 +527,3 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
     });
   }
 }
-
