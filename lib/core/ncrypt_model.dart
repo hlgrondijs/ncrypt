@@ -34,17 +34,18 @@ class NCryptModel extends Model {
 
   SharedPreferences sharedPreferences;
 
+  String salt;
+
   Future init() async {
     await DbHandler2.db.initDb();
-    String salt = await DbHandler2.db.getSalt();
+    salt = await DbHandler2.db.getSalt();
     _nCryptEncryptor = NcryptEncryptor('', salt);
   }
 
   Future lockVault() async {
     // _nCryptEncryptor.keyString = '';
     // _nCryptEncryptor.encrypter = null;
-    String salt = await DbHandler2.db.getSalt();
-    _nCryptEncryptor = new NcryptEncryptor('', salt);
+    _nCryptEncryptor.setKeyString('');
     _accountList = [];
     _noteList = [];
   }

@@ -62,7 +62,7 @@ void main() {
 
       expect(model.accountList, []);
       expect(model.noteList, []);
-      expect(model.nCryptEncryptor.keyString, '');
+      expect(model.nCryptEncryptor.masterPassword, '');
     });
   });
 }
