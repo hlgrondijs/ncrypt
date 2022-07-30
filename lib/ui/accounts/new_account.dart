@@ -66,6 +66,7 @@ class _NewAccountState extends State<NewAccount> {
                     Text('Store a new account using the form below.'),
                     Container(
                       child: TextFormField(
+                        key: Key('NewAccountAccountnameFormField'),
                         decoration: InputDecoration(
                           icon: Icon(Icons.public),
                           labelText: 'Accountname',
@@ -80,6 +81,7 @@ class _NewAccountState extends State<NewAccount> {
                     ),
                     Container(
                       child: TextFormField(
+                        key: Key('NewAccountUsernameFormField'),
                         decoration: InputDecoration(
                             icon: Icon(Icons.account_box),
                             labelText: 'Username',
@@ -93,6 +95,7 @@ class _NewAccountState extends State<NewAccount> {
                     ),
                     Container(
                       child: TextFormField(
+                        key: Key('NewAccountPasswordFormField'),
                         controller: _passwordController,
                         decoration: InputDecoration(
                           icon: Icon(Icons.vpn_key),
@@ -128,6 +131,7 @@ class _NewAccountState extends State<NewAccount> {
                     ),
                     Container(
                       child: FloatingActionButton(
+                        key: Key('NewAccountConfirmFAB'),
                         child: Icon(Icons.check),
                         elevation: 5.0,
                         onPressed: () {

@@ -41,7 +41,10 @@ class NCryptModel extends Model {
   }
 
   Future lockVault() async {
-    _nCryptEncryptor.keyString = '';
+    // _nCryptEncryptor.keyString = '';
+    // _nCryptEncryptor.encrypter = null;
+    String salt = await DbHandler2.db.getSalt();
+    _nCryptEncryptor = new NcryptEncryptor('', salt);
     _accountList = [];
     _noteList = [];
   }

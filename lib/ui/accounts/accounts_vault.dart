@@ -24,6 +24,8 @@ class AccountsVault extends StatefulWidget {
   final List<Account> accountList;
   final VaultHandler vaultHandler;
 
+  Key key = Key('AccountsVaultWidget');
+
   @override
   AccountsVaultState createState() => new AccountsVaultState();
 }
@@ -44,51 +46,63 @@ class AccountsVaultState extends State<AccountsVault> {
     if (widget.accountList.length > 0) {
       return Container(
         child: ReorderableListView(
-            onReorder: _onReorder,
-            reverse: false,
-            children: _searchFilterAccounts(_accounts)
-                .map<Widget>(accountListItem)
-                .toList()),
+          onReorder: _onReorder,
+          reverse: false,
+          children: _searchFilterAccounts(_accounts)
+              .map<Widget>(accountListItem)
+              .toList(),
+        ),
         decoration: BoxDecoration(
-            gradient: gradientBackground(context),
-            border: Border(
-                top: BorderSide(
-                    color: Theme.of(context).dividerColor,
-                    width: .5,
-                    style: BorderStyle.solid))),
+          gradient: gradientBackground(context),
+          border: Border(
+            top: BorderSide(
+              color: Theme.of(context).dividerColor,
+              width: .5,
+              style: BorderStyle.solid,
+            ),
+          ),
+        ),
       );
     } else {
       return Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            gradient: gradientBackground(context),
-            border: Border(
-              top: BorderSide(
-                color: Theme.of(context).dividerColor,
-                width: .5,
-                style: BorderStyle.solid,
-              ),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          gradient: gradientBackground(context),
+          border: Border(
+            top: BorderSide(
+              color: Theme.of(context).dividerColor,
+              width: .5,
+              style: BorderStyle.solid,
             ),
           ),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             GestureDetector(
-                onTap: () {
-                  _navigateToNewAccount(context);
-                },
-                child: Container(
-                    //   width: MediaQuery.of(context).size.width * .8,
-                    //   height: MediaQuery.of(context).size.height * .15,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-                        child: Icon(Icons.add),
-                      ),
-                      Container(
-                          child: Text('\nStart by adding a new account\n'))
-                    ])))
-          ]));
+              onTap: () {
+                _navigateToNewAccount(context);
+              },
+              child: Container(
+                //   width: MediaQuery.of(context).size.width * .8,
+                //   height: MediaQuery.of(context).size.height * .15,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                      child: Icon(Icons.add),
+                    ),
+                    Container(
+                      child: Text('\nStart by adding a new account\n'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -107,21 +121,23 @@ class AccountsVaultState extends State<AccountsVault> {
 
   Widget accountListItem(Account account) {
     return Container(
-      key: Key(account.id.toString()),
+      key: Key('AccountListItem_' + account.id.toString()),
       decoration: BoxDecoration(
-          color: Theme.of(context).primaryColorDark,
-          border: Border(
-            bottom: BorderSide(
-              color: Theme.of(context).dividerColor,
-              style: BorderStyle.solid,
-            ),
+        color: Theme.of(context).primaryColorDark,
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).dividerColor,
+            style: BorderStyle.solid,
           ),
-          boxShadow: [
-            BoxShadow(
-                color: Theme.of(context).shadowColor,
-                blurRadius: 10.0,
-                offset: Offset(0.0, 3.0)),
-          ]),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor,
+            blurRadius: 10.0,
+            offset: Offset(0.0, 3.0),
+          ),
+        ],
+      ),
       child: ExpansionTile(
         key: PageStorageKey<Account>(account),
         backgroundColor: Theme.of(context).primaryColorLight,
@@ -239,52 +255,56 @@ class AccountsVaultState extends State<AccountsVault> {
                 Container(
                   margin: EdgeInsets.fromLTRB(15.0, 0.0, 5.0, 0.0),
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 6.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(16.0))),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 6.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
                       ),
-                      onPressed: () {
-                        _navigateToEditAccount(context, account);
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.edit,
-                            size: 18.0,
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-                            child: Text('Edit'),
-                          ),
-                        ],
-                      )),
+                    ),
+                    onPressed: () {
+                      _navigateToEditAccount(context, account);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.edit,
+                          size: 18.0,
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+                          child: Text('Edit'),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 6.0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(16.0))),
-                      ),
-                      onPressed: () {
-                        _deleteAccountFromDatabase(account.id);
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.delete,
-                            size: 18.0,
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
-                            child: Text('Delete'),
-                          ),
-                        ],
-                      )),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 6.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(16.0))),
+                    ),
+                    onPressed: () {
+                      _deleteAccountFromDatabase(account.id);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.delete,
+                          size: 18.0,
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+                          child: Text('Delete'),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

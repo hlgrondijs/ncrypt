@@ -12,6 +12,8 @@ class NCrypt extends StatefulWidget {
 
   final String themeString;
 
+  Key key = Key('NCryptTopLevelWidget');
+
   @override
   NCryptState createState() => new NCryptState();
 }

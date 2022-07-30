@@ -9,6 +9,8 @@ import 'prefabs.dart';
 import 'landing.dart';
 
 class VaultDoor extends StatefulWidget {
+  Key key = Key('VaultDoorWidget');
+
   @override
   _VaultDoorState createState() => new _VaultDoorState();
 }

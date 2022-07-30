@@ -138,6 +138,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
           searchIconButton(),
           Container(
             child: IconButton(
+              key: Key('NewAccountIconButton'),
               icon: Icon(Icons.add, size: 30.0),
               onPressed: () {
                 _navigateToNewAccount(context);
@@ -168,6 +169,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
           searchIconButton(),
           Container(
             child: IconButton(
+              key: Key('NewNoteIconButton'),
               icon: Icon(Icons.add, size: 30.0),
               onPressed: () {
                 _navigateToNewNote(context);
@@ -496,6 +498,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
                 },
               ),
               TextButton(
+                key: Key('LockVaultConfirmationTextButton'),
                 child: Text('OK'),
                 onPressed: () {
                   lock = true;

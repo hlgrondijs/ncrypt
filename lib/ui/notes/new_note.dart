@@ -50,6 +50,7 @@ class _NewNoteState extends State<NewNote> {
                     Text('Store a new note using the form below'),
                     Container(
                       child: TextFormField(
+                        key: Key('NewNoteTitleFormField'),
                         maxLength: MAX_TITLE_LENGTH,
                         decoration: InputDecoration(
                           icon: Icon(Icons.title),
@@ -64,6 +65,7 @@ class _NewNoteState extends State<NewNote> {
                     ),
                     Container(
                       child: TextField(
+                        key: Key('NewNoteContentFormField'),
                         decoration: InputDecoration(
                           icon: Icon(Icons.edit),
                           labelText: 'Note content',
@@ -78,6 +80,7 @@ class _NewNoteState extends State<NewNote> {
                     ),
                     Container(
                       child: FloatingActionButton(
+                        key: Key('NewNoteConfirmFAB'),
                         child: Icon(Icons.check),
                         elevation: 5.0,
                         onPressed: () {
