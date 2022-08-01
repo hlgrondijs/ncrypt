@@ -11,17 +11,15 @@ import 'package:test/test.dart';
 
 void main() {
   group('nCrypt Encryptor class unit tests | ', () {
-    NcryptEncryptor encryptor;
+    NCryptEncryptor encryptor;
     String password = 'test_password';
     String salt = 'test_salt';
 
-    setUp(() {
-      encryptor = NcryptEncryptor(password, salt);
+    setUp(() async {
+      encryptor = await NCryptEncryptor.create(password, salt);
     });
 
     test('Check constructor result', () {
-      expect(encryptor.masterPassword, password);
-
       expect(encryptor.cipherParameters.runtimeType, Pbkdf2Parameters);
 
       expect(encryptor.cipherParameters.salt, utf8.encode(salt));
@@ -38,7 +36,7 @@ void main() {
     });
 
     test('GenerateIV generates random IV of length 16 bytes.', () async {
-      IV iv = await encryptor.generateIV();
+      IV iv = await generateIV();
       expect(iv.bytes.length, 16);
     });
 
@@ -56,7 +54,7 @@ void main() {
         'test_string_iv': testStringAndIV[1],
       };
 
-      bool result = await encryptor.testPassword(input, password);
+      bool result = await encryptor.testPassword(password, input);
       expect(result, true);
     });
 
@@ -67,7 +65,7 @@ void main() {
         'test_string_iv': testStringAndIV[1],
       };
 
-      bool result = await encryptor.testPassword(input, 'wrong_password');
+      bool result = await encryptor.testPassword('wrong_password', input);
       expect(result, false);
     });
 

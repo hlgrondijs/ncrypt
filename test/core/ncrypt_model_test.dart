@@ -44,7 +44,7 @@ void main() {
     });
 
     test('Populate model, then lock vault', () async {
-      model.nCryptEncryptor = NcryptEncryptor('password', 'salt');
+      model.nCryptEncryptor = await NCryptEncryptor.create('password', 'salt');
       expect(model.nCryptEncryptor.keyString, isNot(''));
 
       List<Account> accList = [
@@ -62,7 +62,8 @@ void main() {
 
       expect(model.accountList, []);
       expect(model.noteList, []);
-      expect(model.nCryptEncryptor.masterPassword, '');
+      expect(
+          model.nCryptEncryptor.keyString, model.nCryptEncryptor.deriveKey(''));
     });
   });
 }

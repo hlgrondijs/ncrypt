@@ -173,7 +173,7 @@ class _UnlockState extends State<Unlock> {
       MaterialPageRoute(
         builder: (context) => ScopedModelDescendant<NCryptModel>(
             builder: (context, _, model) => Vault(
-                  vaultHandler: widget.vaultHandler,
+                  vaultHandler: model.vaultHandler,
                 )),
       ),
     ).then((exitCode) async {

@@ -12,8 +12,8 @@ class NCryptModel extends Model {
   NCryptModel(
       this._firstUse, this._hideLockDialog, this._accountList, this._noteList);
 
-  NcryptEncryptor _nCryptEncryptor;
-  NcryptEncryptor get nCryptEncryptor => _nCryptEncryptor;
+  NCryptEncryptor _nCryptEncryptor;
+  NCryptEncryptor get nCryptEncryptor => _nCryptEncryptor;
   set nCryptEncryptor(encryptor) {
     _nCryptEncryptor = encryptor;
   }
@@ -34,18 +34,13 @@ class NCryptModel extends Model {
 
   SharedPreferences sharedPreferences;
 
-  String salt;
-
   Future init() async {
     await DbHandler2.db.initDb();
-    salt = await DbHandler2.db.getSalt();
-    _nCryptEncryptor = NcryptEncryptor('', salt);
+    _nCryptEncryptor = await NCryptEncryptor.create('');
   }
 
   Future lockVault() async {
-    // _nCryptEncryptor.keyString = '';
-    // _nCryptEncryptor.encrypter = null;
-    _nCryptEncryptor.setKeyString('');
+    _nCryptEncryptor.setPassword('');
     _accountList = [];
     _noteList = [];
   }

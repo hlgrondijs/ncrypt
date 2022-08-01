@@ -1,4 +1,5 @@
 import 'package:encrypt/encrypt.dart';
+import 'package:nCrypt/core/db_handler.dart';
 import 'package:pointycastle/pointycastle.dart';
 
 import 'dart:convert';
@@ -8,43 +9,44 @@ import 'dart:typed_data';
 import 'account.dart';
 import 'note.dart';
 
-class NcryptEncryptor {
-  String masterPassword;
-  String keyString;
+Future<IV> generateIV() async {
+  final Random rng = new Random.secure();
+  Uint8List ivUint8List = Uint8List(16);
+  for (var i = 0; i < 16; i++) {
+    ivUint8List[i] = rng.nextInt(255);
+  }
+  return IV(ivUint8List);
+}
 
+class NCryptEncryptor {
+  String keyString;
   Encrypter encrypter;
   KeyDerivator keyDerivator = new KeyDerivator("SHA-1/HMAC/PBKDF2");
   Pbkdf2Parameters cipherParameters;
 
-  NcryptEncryptor(String password, String salt) {
-    masterPassword = password;
-
+  NCryptEncryptor._create(String password, String salt) {
     List<int> saltBytes = utf8.encode(salt);
     cipherParameters = new Pbkdf2Parameters(saltBytes, 1000, 32);
     keyDerivator.init(cipherParameters);
 
-    keyString = base64KeyFromPassword(password);
-    encrypter = Encrypter(AES(Key.fromBase64(keyString)));
+    setPassword(password);
   }
 
-  Future<IV> generateIV() async {
-    final Random rng = new Random.secure();
-    Uint8List ivUint8List = Uint8List(16);
-    for (var i = 0; i < 16; i++) {
-      ivUint8List[i] = rng.nextInt(255);
+  static Future<NCryptEncryptor> create(password, [String salt]) async {
+    if (salt == null) {
+      salt = await DbHandler2.db.getSalt();
     }
-    return IV(ivUint8List);
+    return NCryptEncryptor._create(password, salt);
   }
 
-  String base64KeyFromPassword(String password) {
+  String deriveKey(String password) {
     List<int> passwordBytes = utf8.encode(password);
     List<int> keyBytes = keyDerivator.process(passwordBytes);
     return base64.encode(keyBytes);
   }
 
-  setKeyString(String password) async {
-    masterPassword = password;
-    keyString = base64KeyFromPassword(password);
+  setPassword(String password) {
+    keyString = deriveKey(password);
     encrypter = Encrypter(AES(Key.fromBase64(keyString)));
   }
 
@@ -56,26 +58,29 @@ class NcryptEncryptor {
     return [encryptedTestString, iv.base64];
   }
 
-  Future<bool> testPassword(
-      Map<String, dynamic> testStringIV, String testedPassword) async {
+  Future<bool> testPassword(String passwordToTest,
+      [Map<String, dynamic> encryptedTestStringData]) async {
     // During unlock the master password is tested by trying to decrypt the "test_string". If the password is valid, decrypted value should read 'secret test string'.
-    String testedKeyString = base64KeyFromPassword(testedPassword);
-    Encrypter testEncrypter = Encrypter(AES(Key.fromBase64(testedKeyString)));
-    IV iv = IV.fromBase64(testStringIV["test_string_iv"]);
+    if (encryptedTestStringData == null) {
+      encryptedTestStringData = await DbHandler2.db.getTestStringData();
+    }
+    String testString = encryptedTestStringData['test_string_encrypted'];
+    IV iv = IV.fromBase64(encryptedTestStringData['test_string_iv']);
 
-    String testString;
+    String keyStringToTest = deriveKey(passwordToTest);
+    Encrypter encrypterToTest = Encrypter(AES(Key.fromBase64(keyStringToTest)));
+
     try {
-      testString = testEncrypter.decrypt(
-          Encrypted.fromBase64(testStringIV["test_string_encrypted"]),
-          iv: iv);
+      String result =
+          encrypterToTest.decrypt(Encrypted.fromBase64(testString), iv: iv);
+
+      if (result == 'secret test string') {
+        return true;
+      }
+      return false;
     } catch (e) {
       return false;
     }
-
-    if (testString == 'secret test string') {
-      return true;
-    }
-    return false;
   }
 
   Future<Account> decryptAccount(EncryptedAccount encryptedAccount) async {

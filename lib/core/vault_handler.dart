@@ -11,28 +11,26 @@ import 'ncrypt_encryptor.dart';
 import 'db_handler.dart';
 
 class VaultHandler {
-  // High-level app functionality methods.
-  NcryptEncryptor nCryptEncryptor;
+  // High-level app functionality methods that can be used throughout the application.
+  NCryptEncryptor nCryptEncryptor;
   SharedPreferences sharedPreferences;
 
-  VaultHandler(NcryptEncryptor nCryptEncryptor) {
+  VaultHandler(NCryptEncryptor nCryptEncryptor) {
     this.nCryptEncryptor = nCryptEncryptor;
   }
 
   Future setEncryptionKey(String password) async {
-    await nCryptEncryptor.setKeyString(password);
+    nCryptEncryptor.setPassword(password);
     List<String> x = await nCryptEncryptor.encryptTestString();
     await DbHandler2.db.setTestString(x[0], x[1]);
   }
 
   Future<bool> testPasswordValid(String password) async {
-    Map<String, dynamic> result = await DbHandler2.db.getTestString();
-    bool y = await nCryptEncryptor.testPassword(result, password);
-    return y;
+    return await nCryptEncryptor.testPassword(password);
   }
 
   Future setNCryptEncryptorParameters(String password) async {
-    await nCryptEncryptor.setKeyString(password);
+    nCryptEncryptor.setPassword(password);
   }
 
   Future resetVault() async {

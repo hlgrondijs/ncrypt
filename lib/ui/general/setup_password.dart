@@ -252,7 +252,6 @@ class _SetupPasswordState extends State<SetupPassword> {
     if (accepted) {
       showLoadingSpinner(context, 'Setting up database');
       await Future.delayed(const Duration(seconds: 1), () => "1");
-      // await widget.vaultHandler.resetVault();
       widget.vaultHandler.setEncryptionKey(masterpass1).then((_) {
         Navigator.pop(context);
         widget.onSubmit();

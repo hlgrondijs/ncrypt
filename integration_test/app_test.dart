@@ -30,8 +30,7 @@ void main() {
 
       expect(find.byKey(Key('LandingWidget')), findsOneWidget);
 
-      final Finder fab = find.byKey(Key('LandingOKFAB'));
-      await tester.tap(fab);
+      await tester.tap(find.byKey(Key('LandingOKFAB')));
 
       await tester.pumpAndSettle();
 
@@ -96,9 +95,8 @@ void main() {
 
       expect(ScopedModel.of<NCryptModel>(context).accountList.length, 0);
       expect(ScopedModel.of<NCryptModel>(context).noteList.length, 0);
-      expect(
-          ScopedModel.of<NCryptModel>(context).nCryptEncryptor.masterPassword,
-          '');
+      expect(ScopedModel.of<NCryptModel>(context).nCryptEncryptor.keyString,
+          ScopedModel.of<NCryptModel>(context).nCryptEncryptor.deriveKey(''));
     });
   });
 }

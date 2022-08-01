@@ -13,6 +13,20 @@ class _UISettingsState extends State<UISettings> {
   int _themeRadio;
   NCryptState nCryptState;
 
+  List<Map<String, String>> themeOptions = [
+    {'name': 'nCrypt', 'identifier': DARK_THEME, 'idx': '0'},
+    {
+      'name': 'Light',
+      'identifier': LIGHT_THEME,
+      'idx': '1',
+    },
+    {
+      'name': 'Neo',
+      'identifier': NEO_THEME,
+      'idx': '2',
+    }
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +44,8 @@ class _UISettingsState extends State<UISettings> {
 
   @override
   Widget build(BuildContext context) {
+    void _radioPressed(int value) => _changeTheme(value, context);
+
     return Scaffold(
       appBar: AppBar(title: Text('UI Settings')),
       body: Container(
@@ -47,48 +63,20 @@ class _UISettingsState extends State<UISettings> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Radio(
-                              value: 0,
-                              groupValue: _themeRadio,
-                              onChanged: (int value) {
-                                _changeTheme(value, context);
-                              },
-                            ),
-                            Text('nCrypt'),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Radio(
-                              value: 1,
-                              groupValue: _themeRadio,
-                              onChanged: (int value) {
-                                _changeTheme(value, context);
-                              },
-                            ),
-                            Text('Light'),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Radio(
-                              value: 2,
-                              groupValue: _themeRadio,
-                              onChanged: (int value) {
-                                _changeTheme(value, context);
-                              },
-                            ),
-                            Text('Neo'),
-                          ],
-                        ),
-                      ),
+                      ...themeOptions.map((option) {
+                        return Container(
+                          child: Row(
+                            children: [
+                              Radio(
+                                value: int.parse(option['idx']),
+                                groupValue: _themeRadio,
+                                onChanged: _radioPressed,
+                              ),
+                              Text(option['name']),
+                            ],
+                          ),
+                        );
+                      }),
                     ],
                   ),
                 ],
@@ -106,7 +94,7 @@ class _UISettingsState extends State<UISettings> {
     });
     nCryptState = context.findAncestorStateOfType<NCryptState>();
 
-    String theme = [DARK_THEME, LIGHT_THEME, NEO_THEME][themeIdx];
+    String theme = themeOptions[themeIdx]['identifier'];
     nCryptState.changeTheme(theme);
   }
 }

@@ -23,7 +23,7 @@ import '../settings/change_master.dart';
 class Vault extends StatefulWidget {
   Vault({Key key, @required this.vaultHandler}) : super(key: key);
 
-  VaultHandler vaultHandler;
+  final VaultHandler vaultHandler;
 
   @override
   VaultState createState() => new VaultState();
@@ -116,7 +116,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
         builder: (context, _, model) => AccountsVault(
             scaffoldKey: _scaffoldKey,
             accountList: model.accountList,
-            vaultHandler: widget.vaultHandler),
+            vaultHandler: model.vaultHandler),
       );
     }
     if (index == 1) {
@@ -124,7 +124,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
         builder: (context, _, model) => NotesVault(
           scaffoldKey: _scaffoldKey,
           noteList: model.noteList,
-          vaultHandler: widget.vaultHandler,
+          vaultHandler: model.vaultHandler,
         ),
       );
     }
@@ -383,7 +383,7 @@ class VaultState extends State<Vault> with WidgetsBindingObserver {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => ScopedModelDescendant<NCryptModel>(
         builder: (context, _, model) => ChangeMaster(
-          vaultHandler: widget.vaultHandler,
+          vaultHandler: model.vaultHandler,
         ),
       ),
     ));

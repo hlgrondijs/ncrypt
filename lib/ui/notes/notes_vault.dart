@@ -29,13 +29,6 @@ class NotesVault extends StatefulWidget {
 
 class _NotesVaultState extends State<NotesVault> {
   bool showSearch = false;
-  List<Note> _notes;
-
-  @override
-  void initState() {
-    _notes = widget.noteList;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +37,9 @@ class _NotesVaultState extends State<NotesVault> {
         child: ReorderableListView(
           onReorder: _onReorder,
           reverse: false,
-          children:
-              _searchFilterNotes(_notes).map<Widget>(noteListItem).toList(),
+          children: _searchFilterNotes(widget.noteList)
+              .map<Widget>(noteListItem)
+              .toList(),
         ),
         decoration: BoxDecoration(
           gradient: gradientBackground(context),
@@ -108,10 +102,11 @@ class _NotesVaultState extends State<NotesVault> {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      final Note note = _notes.removeAt(oldIndex);
-      _notes.insert(newIndex, note);
+      List<Note> newList = widget.noteList;
+      final Note note = newList.removeAt(oldIndex);
+      newList.insert(newIndex, note);
+      _reorderNotesInDB(newList);
     });
-    _reorderNotesInDB(_notes);
   }
 
   Widget noteListItem(Note note) {
@@ -371,9 +366,6 @@ class _NotesVaultState extends State<NotesVault> {
       List<Note> nList = await vaultHandler.getNotesAndDecrypt();
       ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
           .setNoteList(nList);
-      setState(() {
-        _notes = nList;
-      });
     }
   }
 }

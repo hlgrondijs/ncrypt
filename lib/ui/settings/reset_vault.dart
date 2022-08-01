@@ -103,15 +103,16 @@ class _ResetVaultState extends State<ResetVault> {
     return null;
   }
 
-  _resetVault() {
+  _resetVault() async {
     final FormState form = _formKey.currentState;
     form.save();
     FocusScope.of(context).requestFocus(new FocusNode());
     if (form.validate()) {
       VaultHandler vaultHandler =
           ScopedModel.of<NCryptModel>(context).vaultHandler;
-      if (vaultHandler.nCryptEncryptor.masterPassword ==
-          currentMasterpassword) {
+
+      if (await vaultHandler.nCryptEncryptor
+          .testPassword(currentMasterpassword)) {
         vaultHandler.resetVault().then((_) async {
           await ScopedModel.of<NCryptModel>(context).toggleFirstUse();
           await ScopedModel.of<NCryptModel>(context).init();

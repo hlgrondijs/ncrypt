@@ -24,7 +24,7 @@ class AccountsVault extends StatefulWidget {
   final List<Account> accountList;
   final VaultHandler vaultHandler;
 
-  Key key = Key('AccountsVaultWidget');
+  final Key key = Key('AccountsVaultWidget');
 
   @override
   AccountsVaultState createState() => new AccountsVaultState();
@@ -33,13 +33,6 @@ class AccountsVault extends StatefulWidget {
 class AccountsVaultState extends State<AccountsVault> {
   bool showSearch = false;
   Map<int, bool> openedTileMap = {};
-  List<Account> _accounts;
-
-  @override
-  void initState() {
-    _accounts = widget.accountList;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +41,7 @@ class AccountsVaultState extends State<AccountsVault> {
         child: ReorderableListView(
           onReorder: _onReorder,
           reverse: false,
-          children: _searchFilterAccounts(_accounts)
+          children: _searchFilterAccounts(widget.accountList)
               .map<Widget>(accountListItem)
               .toList(),
         ),
@@ -111,12 +104,11 @@ class AccountsVaultState extends State<AccountsVault> {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      final Account account = _accounts.removeAt(oldIndex);
-      _accounts.insert(newIndex, account);
+      List<Account> newList = widget.accountList;
+      final Account account = newList.removeAt(oldIndex);
+      newList.insert(newIndex, account);
+      widget.vaultHandler.reorderAccounts(newList);
     });
-    ScopedModel.of<NCryptModel>(context, rebuildOnChange: false)
-        .vaultHandler
-        .reorderAccounts(_accounts);
   }
 
   Widget accountListItem(Account account) {
@@ -437,16 +429,10 @@ class AccountsVaultState extends State<AccountsVault> {
     );
 
     if (accepted) {
-      VaultHandler vaultHandler =
-          ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
-              .vaultHandler;
-      vaultHandler.deleteAccount(id);
-      List<Account> accList = await vaultHandler.getAccountsAndDecrypt();
+      widget.vaultHandler.deleteAccount(id);
+      List<Account> accList = await widget.vaultHandler.getAccountsAndDecrypt();
       ScopedModel.of<NCryptModel>(context, rebuildOnChange: true)
           .setAccountList(accList);
-      setState(() {
-        _accounts = accList;
-      });
     }
   }
 }

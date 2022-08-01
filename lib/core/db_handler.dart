@@ -110,7 +110,7 @@ class DbHandler2 {
     return result[0]['salt'];
   }
 
-  Future<dynamic> getTestString() async {
+  Future<dynamic> getTestStringData() async {
     var dbClient = await database;
     var result = await dbClient.rawQuery("""
       SELECT test_string_encrypted, test_string_iv FROM Tools WHERE id = 1;
