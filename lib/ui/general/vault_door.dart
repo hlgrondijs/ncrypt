@@ -9,7 +9,7 @@ import 'prefabs.dart';
 import 'landing.dart';
 
 class VaultDoor extends StatefulWidget {
-  Key key = Key('VaultDoorWidget');
+  final Key key = Key('VaultDoorWidget');
 
   @override
   _VaultDoorState createState() => new _VaultDoorState();
@@ -48,8 +48,11 @@ class _VaultDoorState extends State<VaultDoor> {
 
     if (!isFirstUse) {
       child = ScopedModelDescendant<NCryptModel>(
-          builder: (context, _, model) => Unlock(
-              lockVault: model.lockVault, vaultHandler: model.vaultHandler));
+        builder: (context, _, model) => Unlock(
+          lockVault: model.lockVault,
+          vaultHandler: model.vaultHandler,
+        ),
+      );
     }
 
     return Scaffold(

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:nCrypt/core/constants.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 
@@ -104,7 +105,7 @@ class _UnlockState extends State<Unlock> {
                     ),
                   ),
                   Container(
-                    child: Text('v2.0.0'),
+                    child: Text(VERSION),
                   ),
                 ],
               ),

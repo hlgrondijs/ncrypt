@@ -5,16 +5,11 @@ import 'package:scoped_model/scoped_model.dart';
 import 'core/ncrypt_model.dart';
 
 import 'core/ncrypt.dart';
-import 'core/db_handler.dart';
 
-// for development
-import 'package:flutter/rendering.dart';
 import 'core/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //debugPaintSizeEnabled=true;
-  // debugPaintPointersEnabled = true;
   String themeString = DARK_THEME;
   bool hideLockDialog = false;
 
@@ -23,7 +18,6 @@ void main() async {
   /////
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool isFirstUse = prefs.getBool(PREF_FIRST_USE);
-  // isFirstUse = null;
   if (isFirstUse == null) {
     isFirstUse = true;
     prefs.setString(PREF_THEME, DARK_THEME);

@@ -14,3 +14,5 @@ const int MAX_PASSWORD_LENGTH = 64;
 
 const int MAX_TITLE_LENGTH = 40;
 const int MAX_CONTENT_LENGTH = 2000;
+
+const String VERSION = 'v2.1.0';

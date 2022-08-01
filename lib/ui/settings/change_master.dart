@@ -222,7 +222,7 @@ class _ChangeMasterState extends State<ChangeMaster> {
                   },
                 ),
               ),
-              title: Text('Confirm password'),
+              title: Text('Confirm new password'),
             );
           },
         );

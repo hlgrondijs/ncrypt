@@ -45,7 +45,8 @@ void main() {
 
     test('Populate model, then lock vault', () async {
       model.nCryptEncryptor = await NCryptEncryptor.create('password', 'salt');
-      expect(model.nCryptEncryptor.keyString, isNot(''));
+      expect(model.nCryptEncryptor.keyString,
+          model.nCryptEncryptor.deriveKey('password'));
 
       List<Account> accList = [
         Account(1, 'account', 'username', 'password'),
